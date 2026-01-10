@@ -1,0 +1,265 @@
+//
+//  MainGameView.swift
+//  gongtingrizhi
+//
+//  Created by 朱荣 on 2026/1/10.
+//
+
+import SwiftUI
+
+struct MainGameView: View {
+    @ObservedObject var gameManager: GameManager
+    
+    var body: some View {
+        ZStack {
+            // 背景色
+            LinearGradient(
+                gradient: Gradient(colors: [Color(red: 0.95, green: 0.92, blue: 0.85), Color(red: 0.98, green: 0.96, blue: 0.92)]),
+                startPoint: .top,
+                endPoint: .bottom
+            )
+            .ignoresSafeArea()
+            
+            VStack(spacing: 0) {
+                // 顶部导航栏
+                HStack {
+                    Text("首页")
+                        .font(.system(size: 18, weight: .semibold))
+                    Spacer()
+                    
+                    // 退位按钮（在位3年以上才显示）
+                    if gameManager.currentYear >= 3 {
+                        Button(action: {
+                            gameManager.abdicate()
+                        }) {
+                            Text("退位")
+                                .font(.system(size: 16, weight: .medium))
+                                .foregroundColor(.red)
+                        }
+                    }
+                }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 12)
+                .background(Color.white.opacity(0.1))
+                
+                // 游戏进度显示
+                Text("第\(gameManager.currentYear)年·\(gameManager.currentSeason.rawValue)")
+                    .font(.system(size: 16, weight: .medium))
+                    .foregroundColor(.primary)
+                    .padding(.top, 16)
+                    .padding(.bottom, 12)
+                
+                ScrollView {
+                    VStack(spacing: 20) {
+                        // 皇帝属性卡片
+                        if let emperor = gameManager.emperor {
+                            EmperorCardView(emperor: emperor, currentYear: gameManager.currentYear, currentSeason: gameManager.currentSeason)
+                                .padding(.horizontal, 20)
+                        }
+                        
+                        // 记事簿（宫廷日志）
+                        VStack(alignment: .leading, spacing: 12) {
+                            Text("记事簿")
+                                .font(.system(size: 18, weight: .semibold))
+                                .foregroundColor(.primary)
+                                .padding(.horizontal, 20)
+                            
+                            if gameManager.logs.isEmpty {
+                                VStack(spacing: 16) {
+                                    Text("📜")
+                                        .font(.system(size: 60))
+                                    Text("暂无日志记录")
+                                        .font(.system(size: 16))
+                                        .foregroundColor(.secondary)
+                                }
+                                .frame(maxWidth: .infinity)
+                                .padding(.top, 40)
+                                .padding(.bottom, 20)
+                            } else {
+                                ForEach(gameManager.logs) { log in
+                                    LogRowView(log: log)
+                                        .padding(.horizontal, 20)
+                                }
+                                .padding(.bottom, 20)
+                            }
+                        }
+                        .padding(.top, 8)
+                    }
+                }
+                
+                // 下个回合按钮
+                Button(action: {
+                    gameManager.nextRound()
+                }) {
+                    Text("下个回合")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(.vertical, 16)
+                        .background(
+                            LinearGradient(
+                                gradient: Gradient(colors: [Color(red: 0.7, green: 0.5, blue: 0.3), Color(red: 0.8, green: 0.6, blue: 0.4)]),
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
+                        )
+                        .cornerRadius(12)
+                        .shadow(color: Color.black.opacity(0.15), radius: 6, x: 0, y: 3)
+                }
+                .padding(.horizontal, 20)
+                .padding(.bottom, 20)
+            }
+        }
+        .overlay(
+            // Toast消息
+            Group {
+                if let toast = gameManager.toastMessage {
+                    ToastView(message: toast.text)
+                        .transition(.move(edge: .top).combined(with: .opacity))
+                        .animation(.easeInOut, value: gameManager.toastMessage?.id)
+                }
+            }
+            .padding(.top, 60),
+            alignment: .top
+        )
+        .overlay(
+            // 事件弹窗（非全屏模态）
+            Group {
+                if let event = gameManager.currentEvent {
+                    EventPopupView(event: event, gameManager: gameManager)
+                        .transition(.scale.combined(with: .opacity))
+                        .animation(.spring(response: 0.3, dampingFraction: 0.8), value: gameManager.currentEvent?.id)
+                }
+            }
+        )
+    }
+}
+
+// MARK: - 皇帝卡片视图
+struct EmperorCardView: View {
+    let emperor: Emperor
+    let currentYear: Int
+    let currentSeason: Season
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 16) {
+            HStack {
+                Text("👑")
+                    .font(.system(size: 24))
+                Text(emperor.name)
+                    .font(.system(size: 20, weight: .bold))
+                    .foregroundColor(.primary)
+                Spacer()
+            }
+            
+            Text(emperor.title)
+                .font(.system(size: 14))
+                .foregroundColor(.secondary)
+            
+            Divider()
+            
+            // 属性网格
+            VStack(spacing: 12) {
+                HStack(spacing: 20) {
+                    AttributeItem(label: "年龄", value: "\(emperor.age)")
+                    AttributeItem(label: "能力", value: "30")
+                    AttributeItem(label: "道德", value: "100")
+                    AttributeItem(label: "武力", value: "20")
+                }
+                
+                HStack(spacing: 20) {
+                    AttributeItem(label: "智慧", value: "70")
+                    AttributeItem(label: "魅力", value: "70")
+                    AttributeItem(label: "民心", value: "高")
+                    AttributeItem(label: "国库", value: "富裕")
+                }
+            }
+            
+            Divider()
+            
+            HStack {
+                Text("王朝")
+                    .font(.system(size: 14))
+                    .foregroundColor(.secondary)
+                Spacer()
+                Text(emperor.dynastyStatus.rawValue)
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(emperor.dynastyStatus == .unstable ? .red : .primary)
+            }
+        }
+        .padding(20)
+        .background(Color.white)
+        .cornerRadius(16)
+        .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 4)
+    }
+}
+
+struct AttributeItem: View {
+    let label: String
+    let value: String
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 4) {
+            Text(label)
+                .font(.system(size: 12))
+                .foregroundColor(.secondary)
+            Text(value)
+                .font(.system(size: 16, weight: .medium))
+                .foregroundColor(.primary)
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
+// MARK: - 日志行视图
+struct LogRowView: View {
+    let log: GameLog
+    
+    var body: some View {
+        HStack(alignment: .top, spacing: 12) {
+            VStack(alignment: .leading, spacing: 4) {
+                Text("\(log.season.rawValue) · 第\(log.year)年")
+                    .font(.system(size: 12, weight: .medium))
+                    .foregroundColor(.secondary)
+                
+                Text(log.content)
+                    .font(.system(size: 15))
+                    .foregroundColor(.primary)
+                    .lineLimit(nil)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+            
+            Spacer()
+        }
+        .padding(16)
+        .background(Color.white)
+        .cornerRadius(12)
+        .shadow(color: Color.black.opacity(0.06), radius: 4, x: 0, y: 2)
+    }
+}
+
+// MARK: - Toast消息视图
+struct ToastView: View {
+    let message: String
+    
+    var body: some View {
+        Text(message)
+            .font(.system(size: 14))
+            .foregroundColor(.primary)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 12)
+            .background(Color.white.opacity(0.95))
+            .cornerRadius(20)
+            .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 4)
+            .padding(.horizontal, 20)
+    }
+}
+
+#Preview {
+    MainGameView(gameManager: {
+        let manager = GameManager()
+        manager.startNewGame()
+        manager.confirmEmperorAndStart()
+        return manager
+    }())
+}
