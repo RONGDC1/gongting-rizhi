@@ -75,7 +75,7 @@ class GameManager: ObservableObject {
         )
         logs.insert(initialLog, at: 0)
         
-        // 启动事件定时器（随机时间触发，比如8秒左右）
+        // 启动事件定时器（随机时间触发，比如5秒左右）
         scheduleRandomEvent()
     }
     
@@ -84,29 +84,28 @@ class GameManager: ObservableObject {
         let names = nameGenerator.generateEmperorName()
         let ages = Int.random(in: 18...40)
         let statuses: [DynastyStatus] = [.prosperity, .stable, .unstable]
-        let reignTitles = ["大燕", "大晋", "大梁", "大齐", "大周", "大秦", "大楚"]
+        let reignTitles = ["永泰", "平瑞", "元启", "建青", "光熙", "正元", "天和"]
         
         return Emperor(
             name: names,
             age: ages,
             dynastyStatus: statuses.randomElement() ?? .stable,
             yearInPower: 1,
-            reignTitle: reignTitles.randomElement() ?? "大燕"
+            reignTitle: reignTitles.randomElement() ?? "元启"
         )
     }
     
     // MARK: - 安排随机事件
+    @MainActor
     func scheduleRandomEvent() {
         // 取消之前的定时器
         eventTimer?.invalidate()
         
-        // 随机延迟时间（5-12秒）
-        let delay = Double.random(in: 5...12)
+        // 随机延迟时间（5-6秒）
+        let delay = Double.random(in: 5...6)
         
         eventTimer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { [weak self] _ in
-            Task { @MainActor in
-                self?.triggerRandomEvent()
-            }
+            self?.triggerRandomEvent()
         }
     }
     
@@ -127,18 +126,18 @@ class GameManager: ObservableObject {
         let eventType: EventType
         
         if random <= 33 {
-            eventType = .frontCourt  // 前朝事件
+            eventType = .frontCourt  // 🏛️前朝
         } else if random <= 66 {
-            eventType = .palace      // 宫廷事件
+            eventType = .palace      // ⛲️宫廷
         } else {
-            eventType = .harem       // 后宫事件
+            eventType = .harem       // 🐒后宫
         }
         
         // 生成事件
         currentEvent = eventGenerator.generateEvent(type: eventType)
     }
     
-    // MARK: - 判断是否触发危急事件
+    // MARK: - 判断是否触发⚠️危急
     private func shouldTriggerCriticalEvent() -> Bool {
         // 基础概率较低
         var baseProbability = 3  // 3%基础概率
@@ -179,7 +178,7 @@ class GameManager: ObservableObject {
             logs.insert(log, at: 0)  // 最新的日志在前面
         }
         
-        // 如果是危急事件，检查是否游戏结束
+        // 如果是⚠️危急，检查是否游戏结束
         if event.type == .critical {
             // 根据日志文案判断是否游戏结束
             if let logText = option.logText, !logText.isEmpty {

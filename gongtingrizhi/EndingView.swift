@@ -58,12 +58,12 @@ struct EndingContentView: View {
                 }
                 
                 // 结束语
-                Text("宫廷日志在此画下句点。有些事被郑重记下，有些，只存在于那一刻。")
+                Text("日志落笔于此。有些事被郑重记下，有些，只在风过的瞬间悄悄发生...")
                     .font(.system(size: 16))
                     .foregroundColor(.secondary)
                     .multilineTextAlignment(.center)
                     .lineSpacing(8)
-                    .padding(.horizontal, 40)
+                    .padding(.horizontal, 50)
                     .padding(.bottom, 20)
                 
                 // 操作按钮
@@ -92,7 +92,7 @@ struct EndingContentView: View {
                     Button(action: {
                         gameManager.restart()
                     }) {
-                        Text("重开一局")
+                        Text("重新开始")
                             .font(.system(size: 18, weight: .semibold))
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity)

@@ -32,7 +32,7 @@ struct EventPopupView: View {
                         Image(systemName: "xmark")
                             .font(.system(size: 16, weight: .medium))
                             .foregroundColor(.white)
-                            .frame(width: 30, height: 30)
+                            .frame(width: 30, height: 3)
                             .background(Color.white.opacity(0.2))
                             .clipShape(Circle())
                     }
@@ -56,7 +56,7 @@ struct EventPopupView: View {
                     .padding(.top, 8)
                 
                 // 弹窗主体
-                VStack(alignment: .leading, spacing: 20) {
+                VStack(alignment: .leading, spacing: 12) {
                     // 事件描述
                     ScrollView {
                         Text(event.description)
@@ -66,7 +66,7 @@ struct EventPopupView: View {
                             .multilineTextAlignment(.leading)
                             .fixedSize(horizontal: false, vertical: true)
                     }
-                    .frame(maxHeight: 200)
+                    .frame(maxHeight: 150)
                     
                     // 选项按钮
                     VStack(spacing: 12) {
@@ -108,7 +108,7 @@ struct EventPopupView: View {
             .background(Color.white)
             .cornerRadius(20)
             .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 10)
-            .padding(.horizontal, 20)
+            .padding(.horizontal, 24)
         }
         .zIndex(1000)
     }
@@ -117,7 +117,7 @@ struct EventPopupView: View {
 #Preview {
     EventPopupView(
         event: GameEvent(
-            title: "宫廷事件",
+            title: "⛲️宫廷",
             type: .palace,
             description: "宫中御养的橘猫忽然不见了，宫人低声议论，说它昨夜还在御书房附近出没。今日一早，几位内侍在殿外候着，请示是否要继续寻找？",
             options: [
