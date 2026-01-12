@@ -52,10 +52,10 @@ enum Season: String, CaseIterable, Codable {
 
 // MARK: - 事件类型枚举
 enum EventType: String, Codable {
-    case frontCourt = "前朝事件"     // 前朝事件
-    case palace = "宫廷事件"         // 宫廷事件
-    case harem = "后宫事件"          // 后宫事件
-    case critical = "危急事件"       // 危急事件（低概率）
+    case frontCourt = "🏛️前朝事件"     // 前朝事件
+    case palace = "⛲️宫廷事件"         // 宫廷事件
+    case harem = "🏮后宫事件"          // 后宫事件
+    case critical = "⚠️危急事件"       // 危急事件（低概率）
 }
 
 // MARK: - 事件选项

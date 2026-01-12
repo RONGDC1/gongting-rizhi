@@ -10,6 +10,9 @@ import SwiftUI
 import Combine
 
 class GameManager: ObservableObject {
+    // -----------------------------
+    // 游戏核心数据
+    // -----------------------------
     @Published var emperor: Emperor?
     @Published var logs: [GameLog] = []
     @Published var currentSeason: Season = .spring
@@ -19,11 +22,20 @@ class GameManager: ObservableObject {
     @Published var endingType: EndingType?
     @Published var toastMessage: ToastMessage?  // Toast消息
     @Published var showingLogsView: Bool = false  // 是否显示日志查看页
-    
+
+    // -----------------------------
     // 计算当前年份（每4回合为一年）
+    // -----------------------------
     var currentYear: Int {
         return (currentRound - 1) / 4 + 1
     }
+
+    // -----------------------------
+    // 新增事件计数属性，用于4次事件自动下一回合
+    // -----------------------------
+    @Published var eventsThisRound: Int = 0   // 当前回合触发事件次数
+    let maxEventsPerRound = 4                 // 4次事件自动下一回合
+
     
     // 随机生成器
     private let nameGenerator = NameGenerator()
@@ -101,8 +113,8 @@ class GameManager: ObservableObject {
         // 取消之前的定时器
         eventTimer?.invalidate()
         
-        // 随机延迟时间（5-6秒）
-        let delay = Double.random(in: 5...6)
+        // 随机延迟时间（4-5秒）
+        let delay = Double.random(in: 4...5)
         
         eventTimer = Timer.scheduledTimer(withTimeInterval: delay, repeats: false) { [weak self] _ in
             self?.triggerRandomEvent()
@@ -111,33 +123,45 @@ class GameManager: ObservableObject {
     
     // MARK: - 触发随机事件
     func triggerRandomEvent() {
-        // 如果游戏已结束，不再触发事件
+        // ✅ 1️⃣ 游戏未在进行中则直接返回，防止多余触发
         guard gameState == .playing else { return }
-        
-        // 如果是危急事件（概率较低，但飘摇状态会提升概率）
+
+        // ✅ 2️⃣ 处理危急事件
+        // 危急事件概率较低，但飘摇状态会提升概率
         if shouldTriggerCriticalEvent() {
-            let criticalEvent = eventGenerator.generateCriticalEvent()
-            currentEvent = criticalEvent
+            currentEvent = eventGenerator.generateCriticalEvent()
             return
         }
-        
-        // 随机选择事件类型
-        let random = Int.random(in: 1...100)
+
+        // ✅ 3️⃣ 处理普通随机事件
         let eventType: EventType
-        
+        let random = Int.random(in: 1...100)
+
         if random <= 33 {
-            eventType = .frontCourt  // 🏛️前朝
+            eventType = .frontCourt   // 前朝事件
         } else if random <= 66 {
-            eventType = .palace      // ⛲️宫廷
+            eventType = .palace       // 宫廷事件
         } else {
-            eventType = .harem       // 🐒后宫
+            eventType = .harem        // 后宫事件
         }
-        
-        // 生成事件
+
+        // 生成事件并赋值给 currentEvent
         currentEvent = eventGenerator.generateEvent(type: eventType)
+
+        // ✅ 4️⃣ 增加本回合事件计数
+        eventsThisRound += 1
+
+        // ✅ 5️⃣ 如果事件次数达到上限，自动进入下一回合
+        if eventsThisRound >= maxEventsPerRound {
+            // 延迟 0.3 秒，让第四个事件短暂显示
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) { [weak self] in
+                self?.nextRound()
+            }
+        }
     }
+
     
-    // MARK: - 判断是否触发⚠️危急
+    // MARK: - 判断是否触发危急事件
     private func shouldTriggerCriticalEvent() -> Bool {
         // 基础概率较低
         var baseProbability = 3  // 3%基础概率
@@ -155,19 +179,29 @@ class GameManager: ObservableObject {
         return random <= finalProbability
     }
     
-    // MARK: - 处理事件选择
+    // ============================================================
+    // MARK: - 处理事件选择（⚠️ 修复版：解决 Toast 显示问题）
+    // ============================================================
     func handleEventChoice(option: EventOption) {
         guard let event = currentEvent else { return }
         
-        // 显示Toast消息（即时反馈）
-        toastMessage = ToastMessage(text: option.toastText)
+        // ✅ 第1步：先关闭弹窗
+        currentEvent = nil
         
-        // 延迟自动消失Toast（3秒）
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
-            self?.toastMessage = nil
+        // ✅ 第2步：延迟 0.35 秒后显示 Toast（等弹窗淡出动画完成）
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+            guard let self = self else { return }
+            
+            // 显示Toast消息（即时反馈）
+            self.toastMessage = ToastMessage(text: option.toastText)
+            
+            // 3秒后自动消失Toast
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+                self?.toastMessage = nil
+            }
         }
         
-        // 如果有日志文案，写入日志（自动添加季节和年份）
+        // ✅ 第3步：如果有日志文案，写入日志（自动添加季节和年份）
         if let logText = option.logText, !logText.isEmpty {
             let fullLogText = "\(currentSeason.rawValue) · 第\(currentYear)年｜\(logText)"
             let log = GameLog(
@@ -178,7 +212,7 @@ class GameManager: ObservableObject {
             logs.insert(log, at: 0)  // 最新的日志在前面
         }
         
-        // 如果是⚠️危急，检查是否游戏结束
+        // ✅ 第4步：如果是危急事件，检查是否游戏结束
         if event.type == .critical {
             // 根据日志文案判断是否游戏结束
             if let logText = option.logText, !logText.isEmpty {
@@ -215,10 +249,7 @@ class GameManager: ObservableObject {
             }
         }
         
-        // 关闭事件
-        currentEvent = nil
-        
-        // 如果不是结局事件，继续安排下一个随机事件
+        // ✅ 第5步：如果不是结局事件，继续安排下一个随机事件
         if gameState == .playing {
             scheduleRandomEvent()
         }
