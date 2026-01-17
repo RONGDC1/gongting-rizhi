@@ -41,15 +41,41 @@ class EventGenerator {
     func generateFrontCourtEvent() -> GameEvent {
         let events: [(title: String, description: String, options: [EventOption])] = [
             (
-                title: "🏛️前朝",
+                title: "前朝事件",
                 description: "丞相上奏：陛下，今年北方大旱，百姓颗粒无收，请陛下开仓放粮，救济灾民。",
                 options: [
-                    EventOption(text: "立即开仓放粮", toastText: "皇帝下令开仓，灾民感激涕零", logText: "因丞相的请求，皇帝决定立即开仓放粮，救济灾民"),
-                    EventOption(text: "先调查再决定", toastText: "皇帝派遣钦差前往调查", logText: "因丞相的请求，皇帝决定先派遣官员调查灾情再作决定")
+                    EventOption(
+                        text: "立即开仓放粮",
+                        toastText: "皇帝下令开仓，灾民感激涕零",
+                        logText: "因丞相的请求，皇帝决定立即开仓放粮，救济灾民",
+                        attitude: .lenient,
+                        attributeChanges: AttributeChanges(mood: 0.0, intelligence: 0.0, charm: 0.0, reputation: 0.0, popularity: 0.15, morality: 0.1)
+                    ),
+                    EventOption(
+                        text: "先调查再决定",
+                        toastText: "皇帝派遣钦差前往调查",
+                        logText: "因丞相的请求，皇帝决定先派遣官员调查灾情再作决定",
+                        attitude: .balanced,
+                        attributeChanges: AttributeChanges(mood: 0.0, intelligence: 0.05, charm: 0.0, reputation: 0.0, popularity: 0.0, morality: 0.0)
+                    ),
+                    EventOption(
+                        text: "严词拒绝",
+                        toastText: "皇帝认为灾情不实，拒绝开仓",
+                        logText: "因丞相的请求，皇帝严词拒绝开仓，认为灾情不实",
+                        attitude: .strong,
+                        attributeChanges: AttributeChanges(mood: -0.05, intelligence: 0.0, charm: 0.0, reputation: -0.1, popularity: -0.15, morality: -0.1)
+                    ),
+                    EventOption(
+                        text: "私下挪用部分",
+                        toastText: "皇帝私下挪用部分粮食，中饱私囊",
+                        logText: "因丞相的请求，皇帝私下挪用部分粮食，中饱私囊",
+                        attitude: .selfish,
+                        attributeChanges: AttributeChanges(mood: 0.0, intelligence: 0.0, charm: 0.0, reputation: -0.15, popularity: -0.2, morality: -0.2)
+                    )
                 ]
             ),
             (
-                title: "🏛️前朝",
+                title: "前朝事件",
                 description: "兵部尚书禀报：陛下，边境传来急报，邻国军队在边境集结，意图不明。",
                 options: [
                     EventOption(text: "增派兵马防御", toastText: "边境兵马调动，军心大振", logText: "因兵部尚书的禀报，皇帝决定增派兵马加强边境防御"),
@@ -57,23 +83,47 @@ class EventGenerator {
                 ]
             ),
             (
-                title: "🏛️前朝",
+                title: "前朝事件",
                 description: "户部尚书奏报：陛下，今年国库充盈，建议减免部分赋税，以安民心。",
                 options: [
-                    EventOption(text: "减免赋税", toastText: "百姓闻讯欢呼，民心大悦😊", logText: "因户部尚书的建议，皇帝决定减免赋税，民心大悦"),
-                    EventOption(text: "保持现状", toastText: "国库继续充盈，以备不时之需", logText: "因户部尚书的建议，皇帝权衡后决定保持现有赋税政策")
+                    EventOption(
+                        text: "减免赋税",
+                        toastText: "百姓闻讯欢呼，民心大悦😊",
+                        logText: "因户部尚书的建议，皇帝决定减免赋税，民心大悦",
+                        attitude: .lenient,
+                        attributeChanges: AttributeChanges(mood: 0.05, intelligence: 0.0, charm: 0.0, reputation: 0.0, popularity: 0.15, morality: 0.05)
+                    ),
+                    EventOption(
+                        text: "保持现状",
+                        toastText: "国库继续充盈，以备不时之需",
+                        logText: "因户部尚书的建议，皇帝权衡后决定保持现有赋税政策",
+                        attitude: .balanced,
+                        attributeChanges: AttributeChanges(mood: 0.0, intelligence: 0.05, charm: 0.0, reputation: 0.0, popularity: 0.0, morality: 0.0)
+                    )
                 ]
             ),
             (
-                title: "🏛️前朝",
+                title: "前朝事件",
                 description: "御史大夫弹劾某位官员贪污受贿，请求陛下严惩！！😡",
                 options: [
-                    EventOption(text: "严惩不贷", toastText: "贪官被罢黜，朝野震动", logText: "因御史大夫的弹劾，皇帝决定严惩贪官，以正朝纲"),
-                    EventOption(text: "调查后再定", toastText: "皇帝下令彻查此事", logText: "因御史大夫的弹劾，皇帝决定先调查真相再做决定")
+                    EventOption(
+                        text: "严惩不贷",
+                        toastText: "贪官被罢黜，朝野震动",
+                        logText: "因御史大夫的弹劾，皇帝决定严惩贪官，以正朝纲",
+                        attitude: .strong,
+                        attributeChanges: AttributeChanges(mood: 0.0, intelligence: 0.0, charm: 0.0, reputation: 0.1, popularity: 0.05, morality: 0.1)
+                    ),
+                    EventOption(
+                        text: "调查后再定",
+                        toastText: "皇帝下令彻查此事",
+                        logText: "因御史大夫的弹劾，皇帝决定先调查真相再做决定",
+                        attitude: .balanced,
+                        attributeChanges: AttributeChanges(mood: 0.0, intelligence: 0.05, charm: 0.0, reputation: 0.0, popularity: 0.0, morality: 0.05)
+                    )
                 ]
             ),
             (
-                title: "🏛️前朝",
+                title: "前朝事件",
                 description: "大臣呈上边疆军情，皇帝虚心纳谏，边疆暂稳～😌",
                 options: [
                     EventOption(text: "采纳建议", toastText: "皇帝采纳建议，边疆暂稳", logText: "大臣呈上边疆军情，皇帝虚心纳谏，边疆暂稳"),
@@ -95,23 +145,47 @@ class EventGenerator {
     func generatePalaceEvent() -> GameEvent {
         let events: [(title: String, description: String, options: [EventOption])] = [
             (
-                title: "⛲️宫廷",
+                title: "宫廷事件",
                 description: "宫中御养的橘猫不见了，宫人低声议论，说它昨夜还在御书房附近出没。今日一早，几位内侍在殿外小心翼翼地候着...",
                 options: [
-                    EventOption(text: "不用管，它自己会回来的", toastText: "皇帝命人备下鱼干🐟，御猫当夜悄然现身～", logText: nil),
-                    EventOption(text: "找不到，杖责五十大板！", toastText: "那么凶，奴才们被你吓死了😰", logText: nil)
+                    EventOption(
+                        text: "不用管，它自己会回来的",
+                        toastText: "皇帝命人备下鱼干🐟，御猫当夜悄然现身～",
+                        logText: nil,
+                        attitude: .lenient,
+                        attributeChanges: AttributeChanges(mood: 0.05, intelligence: 0.0, charm: 0.05, reputation: 0.0, popularity: 0.0, morality: 0.0)
+                    ),
+                    EventOption(
+                        text: "找不到，杖责五十大板！",
+                        toastText: "那么凶，奴才们被你吓死了😰",
+                        logText: nil,
+                        attitude: .strong,
+                        attributeChanges: AttributeChanges(mood: -0.1, intelligence: 0.0, charm: 0.0, reputation: 0.0, popularity: -0.05, morality: -0.1)
+                    )
                 ]
             ),
             (
-                title: "⛲️宫廷",
-                description: "中秋佳节临近，宫中灯火初上，皇后提议设宴群臣，共赏明月🌕，彰显皇室恩德。",
+                title: "宫廷事件",
+                description: "中秋佳节临近，宫中灯火初上，皇后提议设宴群臣，共赏明月，彰显皇室恩德。",
                 options: [
-                    EventOption(text: "举办盛宴", toastText: "宫中张灯结彩，华筵铺开，宫廷与民间一片欢腾👏", logText: "采纳皇后提议，中秋盛宴氛围温暖，人群笑语映照明月。"),
-                    EventOption(text: "简单庆祝", toastText: "宫中布置简雅，群臣温馨共度中秋🏮", logText: nil)
+                    EventOption(
+                        text: "举办盛宴",
+                        toastText: "宫中张灯结彩，华筵铺开，宫廷与民间一片欢腾👏",
+                        logText: "采纳皇后提议，中秋盛宴氛围温暖，人群笑语映照明月。",
+                        attitude: .lenient,
+                        attributeChanges: AttributeChanges(mood: 0.1, intelligence: 0.0, charm: 0.05, reputation: 0.0, popularity: 0.1, morality: 0.0)
+                    ),
+                    EventOption(
+                        text: "简单庆祝",
+                        toastText: "宫中布置简雅，群臣温馨共度中秋🏮",
+                        logText: nil,
+                        attitude: .balanced,
+                        attributeChanges: AttributeChanges(mood: 0.05, intelligence: 0.0, charm: 0.0, reputation: 0.0, popularity: 0.0, morality: 0.0)
+                    )
                 ]
             ),
             (
-                title: "⛲️宫廷",
+                title: "宫廷事件",
                 description: "宫中御花园的牡丹花盛开，皇后轻笑邀皇帝共赏。花间一回眸，仿佛又回到年少时两人初见的模样。",
                 options: [
                     EventOption(text: "欣然前往", toastText: "😘皇帝与皇后在花园中漫步赏花~", logText: nil),
@@ -119,7 +193,7 @@ class EventGenerator {
                 ]
             ),
             (
-                title: "⛲️宫廷",
+                title: "宫廷事件",
                 description: "边关急奏传来：屯田士卒遭暴风侵袭，粮草散落泥泞，帐篷倒塌，哀嚎与呼救声混入风声。",
                 options: [
                     EventOption(text: "亲自调度", toastText: "士卒获援，民心振奋💪", logText: "宫中夜灯映照书案，思绪仍牵边关安危..."),
@@ -127,7 +201,7 @@ class EventGenerator {
                 ]
             ),
             (
-                title: "⛲️宫廷",
+                title: "宫廷事件",
                 description: "太后召皇帝入书房，语气温和却坚定，提醒他膝下无子，事关皇室未来，需早作打算。",
                 options: [
                     EventOption(text: "烦了想走", toastText: "不耐烦地回应太后，起身欲离开书房", logText: nil),
@@ -135,7 +209,7 @@ class EventGenerator {
                 ]
             ),
             (
-                title: "⛲️宫廷",
+                title: "宫廷事件",
                 description: "今日大朝，群臣进见，皇上需决定是否采纳新的赋税制度提案，以平衡国库与民生。",
                 options: [
                     EventOption(text: "采纳提案", toastText: "新政上奏，朝臣称善", logText: "皇帝采纳新赋税方案，国库渐充百官称善，朝堂风声更稳。"),
@@ -157,7 +231,7 @@ class EventGenerator {
     func generateHaremEvent() -> GameEvent {
         let events: [(title: String, description: String, options: [EventOption])] = [
             (
-                title: "🐒后宫",
+                title: "后宫事件",
                 description: "太医院官员匆匆入宫，恭敬禀报：“皇上，妃子遇喜了！”",
                 options: [
                     EventOption(text: "亲自前往", toastText: "☺️见到爱妃安好，心头一片暖意", logText: nil),
@@ -165,7 +239,7 @@ class EventGenerator {
                 ]
             ),
             (
-                title: "🐒后宫",
+                title: "后宫事件",
                 description: "悄然步入后宫，她在院中理饰花卉，随即恭敬行礼，脸上浮现惊喜而柔和的笑意，阳光洒在她肩头，轻盈而生动。",
                 options: [
                     EventOption(text: "伸手帮她整理花枝", toastText: "笑意与花香在院中流淌🌸", logText: "宠爱的妃子让后宫暗生嫉意。"),
@@ -173,7 +247,7 @@ class EventGenerator {
                 ]
             ),
             (
-                title: "🐒后宫",
+                title: "后宫事件",
                 description: "妃子在宫中挑选新来的书卷，皇后冷眼注视，轻声提醒妃子礼数。妃子心中暗自较量，想赢得皇帝好感，却不得不顾忌皇后的威严，气氛微微紧张。",
                 options: [
                     EventOption(text: "偏袒妃子", toastText: "皇后警惕加深，宫中暗流悄起", logText: nil),
@@ -181,7 +255,7 @@ class EventGenerator {
                 ]
             ),
             (
-                title: "🐒后宫",
+                title: "后宫事件",
                 description: "妃子们希望能在宫中举办一场诗词会，邀请皇帝一同参与。",
                 options: [
                     EventOption(text: "批准举办", toastText: "宫中举办诗词会，妃子们吟诗作对", logText: "因妃子们的请求，皇帝批准举办诗词会"),
@@ -189,7 +263,7 @@ class EventGenerator {
                 ]
             ),
             (
-                title: "🐒后宫",
+                title: "后宫事件",
                 description: "有人私下议论某个妃子近日行为异于平日，似在暗中筹划什么。",
                 options: [
                     EventOption(text: "暂不理会", toastText: "妃子谨慎行事，暗流潜伏🤫", logText: nil),
@@ -207,11 +281,49 @@ class EventGenerator {
         )
     }
     
+    // MARK: - 生成世情风向事件
+    func generatePublicOpinionEvent() -> GameEvent {
+        let events: [(title: String, description: String, options: [EventOption])] = [
+            (
+                title: "世情风向",
+                description: "民间传闻，某地出现祥瑞之兆，百姓纷纷议论，认为这是新朝吉兆。朝中有人建议陛下亲临查看，以彰显皇恩。",
+                options: [
+                    EventOption(text: "亲临查看", toastText: "皇帝亲临，百姓欢呼，民心大悦", logText: "因祥瑞之兆，皇帝亲临查看，百姓感念皇恩，民心大悦。"),
+                    EventOption(text: "派官员代行", toastText: "官员代行查看，百姓略感失望", logText: nil)
+                ]
+            ),
+            (
+                title: "世情风向",
+                description: "市井传言，某地商贾囤积居奇，哄抬物价，百姓怨声载道。有人上书请求陛下严查此事。",
+                options: [
+                    EventOption(text: "严查商贾", toastText: "严查商贾，物价回落，百姓称善", logText: "因市井传言，皇帝下令严查商贾，物价回落，百姓称善。"),
+                    EventOption(text: "暂不理会", toastText: "传言继续发酵，民心略有不满", logText: nil)
+                ]
+            ),
+            (
+                title: "世情风向",
+                description: "民间流传一首新诗，内容暗讽朝政，文人墨客争相传诵。有人建议查禁此诗，以免影响朝廷声誉。",
+                options: [
+                    EventOption(text: "查禁此诗", toastText: "查禁此诗，文人议论纷纷", logText: "因民间流传新诗，皇帝下令查禁，文人议论纷纷。"),
+                    EventOption(text: "不予理会", toastText: "诗作继续流传，民间议论渐起", logText: nil)
+                ]
+            )
+        ]
+        
+        let selected = events.randomElement()!
+        return GameEvent(
+            title: selected.title,
+            type: .palace,
+            description: selected.description,
+            options: selected.options
+        )
+    }
+    
     // MARK: - 生成危急事件
     func generateCriticalEvent() -> GameEvent {
         let events: [(title: String, description: String, options: [EventOption])] = [
             (
-                title: "⚠️危急",
+                title: "危急事件",
                 description: "深夜，皇帝在寝宫中就寝。突然，一名刺客潜入宫中，意图行刺！！",
                 options: [
                     EventOption(text: "奋力抵抗！", toastText: "禁卫及时赶到，刺客被擒", logText: "深夜遇刺，皇帝奋力抵抗，禁卫及时赶到救驾"),
@@ -219,7 +331,7 @@ class EventGenerator {
                 ]
             ),
             (
-                title: "⚠️危急",
+                title: "危急事件",
                 description: "🏹皇帝在御花园散步时，突然从暗处射来一支毒箭！！",
                 options: [
                     EventOption(text: "躲避不及！", toastText: "皇帝中箭，虽经抢救但仍不幸身亡", logText: "因遇刺事件，皇帝躲避不及，不幸中箭身亡"),
@@ -227,7 +339,7 @@ class EventGenerator {
                 ]
             ),
             (
-                title: "⚠️危急",
+                title: "危急事件",
                 description: "边关传来急报：有将领密谋造反，意图推翻朝廷！！",
                 options: [
                     EventOption(text: "派兵镇压！", toastText: "朝廷派兵镇压，谋反被平息", logText: "边关谋反，皇帝派兵镇压，叛乱被平息"),

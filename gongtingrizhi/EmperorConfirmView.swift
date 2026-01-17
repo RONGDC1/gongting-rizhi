@@ -12,107 +12,58 @@ struct EmperorConfirmView: View {
     
     var body: some View {
         ZStack {
-            // 背景色（类似羊皮纸）
-            LinearGradient(
-                gradient: Gradient(colors: [Color(red: 0.95, green: 0.92, blue: 0.85), Color(red: 0.98, green: 0.96, blue: 0.92)]),
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .ignoresSafeArea()
+            // 背景
+            Color(red: 0.93, green: 0.9, blue: 0.82)
+                .ignoresSafeArea()
             
-            ScrollView {
-                VStack(spacing: 30) {
-                    // 标题
-                    VStack(spacing: 8) {
-                        Text("👑")
-                            .font(.system(size: 40))
-                        Text("创建角色")
-                            .font(.system(size: 28, weight: .bold))
-                            .foregroundColor(Color(red: 0.3, green: 0.2, blue: 0.15))
-                    }
-                    .padding(.top, 40)
+            VStack(spacing: 0) {
+                Spacer()
+                
+                // 固定文案展示
+                VStack(spacing: 16) {
+                    Text("人生已经开始，")
+                        .font(.system(size: 16))
+                        .foregroundColor(Color(red: 0.64, green: 0.4, blue: 0.23))
                     
-                    if let emperor = gameManager.emperor {
-                        // 皇帝信息卡片
-                        VStack(alignment: .leading, spacing: 20) {
-                            VStack(alignment: .leading, spacing: 16) {
-                                InfoRow(label: "姓名", value: emperor.name)
-                                InfoRow(label: "年龄", value: "\(emperor.age)岁")
-                                InfoRow(label: "属性", value: "宅心仁厚")  // 固定属性文案
-                                InfoRow(label: "年号", value: emperor.reignTitle)
-                                InfoRow(
-                                    label: "王朝",
-                                    value: emperor.dynastyStatus.rawValue,
-                                    isUnstable: emperor.dynastyStatus == .unstable
-                                )
-                            }
-                            
-                            // 换一换按钮
-                            Button(action: {
-                                gameManager.regenerateEmperor()
-                            }) {
-                                Text("换一换")
-                                    .font(.system(size: 16, weight: .medium))
-                                    .foregroundColor(Color(red: 0.7, green: 0.5, blue: 0.3))
-                                    .frame(maxWidth: .infinity)
-                                    .padding(.vertical, 12)
-                                    .background(Color.white)
-                                    .cornerRadius(8)
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 8)
-                                            .stroke(Color(red: 0.7, green: 0.5, blue: 0.3).opacity(0.3), lineWidth: 1)
-                                    )
-                            }
-                        }
-                        .padding(24)
-                        .background(Color.white)
-                        .cornerRadius(16)
-                        .shadow(color: Color.black.opacity(0.1), radius: 8, x: 0, y: 4)
-                        .padding(.horizontal, 20)
-                        
-                        // 开始游戏按钮
-                        Button(action: {
-                            gameManager.confirmEmperorAndStart()
-                        }) {
-                            Text("开始游戏")
-                                .font(.system(size: 18, weight: .semibold))
-                                .foregroundColor(.white)
-                                .frame(maxWidth: .infinity)
-                                .padding(.vertical, 16)
-                                .background(
-                                    LinearGradient(
-                                        gradient: Gradient(colors: [Color(red: 0.7, green: 0.5, blue: 0.3), Color(red: 0.8, green: 0.6, blue: 0.4)]),
-                                        startPoint: .leading,
-                                        endPoint: .trailing
-                                    )
-                                )
-                                .cornerRadius(12)
-                                .shadow(color: Color.black.opacity(0.15), radius: 6, x: 0, y: 3)
-                        }
-                        .padding(.horizontal, 20)
-                        .padding(.top, 10)
-                    }
+                    Text("你无法选择出身、性格与局势。")
+                        .font(.system(size: 16))
+                        .foregroundColor(Color(red: 0.64, green: 0.4, blue: 0.23))
+                    
+                    Text("你能选择的，")
+                        .font(.system(size: 16))
+                        .foregroundColor(Color(red: 0.64, green: 0.4, blue: 0.23))
+                    
+                    Text("只有在这一刻如何判断，")
+                        .font(.system(size: 16))
+                        .foregroundColor(Color(red: 0.64, green: 0.4, blue: 0.23))
+                    
+                    Text("以及判断之后，")
+                        .font(.system(size: 16))
+                        .foregroundColor(Color(red: 0.64, green: 0.4, blue: 0.23))
+                    
+                    Text("愿意承担什么。")
+                        .font(.system(size: 16))
+                        .foregroundColor(Color(red: 0.64, green: 0.4, blue: 0.23))
                 }
-                .padding(.bottom, 40)
+                .multilineTextAlignment(.center)
+                .padding(.horizontal, 40)
+                
+                Spacer()
+                
+                // 承此天命按钮
+                Button(action: {
+                    gameManager.confirmEmperorAndStart()
+                }) {
+                    Text("承此天命")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(Color(red: 1, green: 0.99, blue: 0.9))
+                        .frame(width: 223)
+                        .padding(.vertical, 16)
+                        .background(Color(red: 0.64, green: 0.4, blue: 0.23))
+                        .cornerRadius(223/2)
+                }
+                .padding(.bottom, 48)
             }
-        }
-    }
-}
-
-struct InfoRow: View {
-    let label: String
-    let value: String
-    var isUnstable: Bool = false
-    
-    var body: some View {
-        HStack {
-            Text(label + "：")
-                .font(.system(size: 16))
-                .foregroundColor(.secondary)
-            Spacer()
-            Text(value)
-                .font(.system(size: 18, weight: .medium))
-                .foregroundColor(isUnstable ? .red : .primary)
         }
     }
 }

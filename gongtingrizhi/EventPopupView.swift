@@ -19,31 +19,45 @@ struct EventPopupView: View {
     var body: some View {
         // ⚠️ 所有弹窗样式在这里统一管理，MainGameView 只负责蒙层
         VStack(spacing: 0) {
-            // 事件标题标签
-            Text(event.type.rawValue)
-                .font(.system(size: 16, weight: .semibold))
-                .foregroundColor(.white)
-                .padding(.horizontal, 20)
-                .padding(.vertical, 8)
-                .background(
-                    event.type == .critical
-                    ? Color.red
-                    : Color(red: 0.7, green: 0.5, blue: 0.3)
-                )
-                .cornerRadius(20)
-                .padding(.top, 28)  // ✅ 标题到顶部：28pt
+            // 标题栏（蓝色横幅，左侧标题，右侧关闭按钮）
+            HStack {
+                Text(event.type == .critical ? "危急事件" : event.source.rawValue)
+                    .font(.system(size: 18, weight: .semibold))
+                    .foregroundColor(.white)
+                
+                Spacer()
+                
+                // 关闭按钮（X）- 危急事件不显示
+                if event.type != .critical {
+                    Button(action: {
+                        gameManager.closeEventPopup()
+                    }) {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 14, weight: .semibold))
+                            .foregroundColor(.white)
+                            .frame(width: 24, height: 32)
+                    }
+                }
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 12)
+            .background(
+                event.type == .critical
+                ? Color.red
+                : Color(red: event.source.color.red, green: event.source.color.green, blue: event.source.color.blue)
+            )
             
-            // 事件描述文字（不用 ScrollView，自适应高度）
+            // 事件描述文字
             Text(event.description)
                 .font(.system(size: 16))
                 .foregroundColor(.primary)
                 .lineSpacing(6)
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)
-                .padding(.horizontal, 24)
-                .padding(.top, 28)  // ✅ 标题到内容：28pt
+                .padding(.horizontal, 22)
+                .padding(.vertical, 32)
             
-            // 选项按钮列表
+            // 选项按钮列表（灰色背景按钮）
             VStack(spacing: 12) {
                 ForEach(event.options) { option in
                     Button(action: {
@@ -52,36 +66,26 @@ struct EventPopupView: View {
                         HStack {
                             Spacer()
                             Text(option.text)
-                                .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(.white)
+                                .font(.system(size: 16, weight: .medium))
+                                .foregroundColor(.primary)
                             Spacer()
                         }
                         .padding(.vertical, 14)
-                        .background(
-                            event.type == .critical
-                            ? LinearGradient(
-                                gradient: Gradient(colors: [Color.red, Color.red.opacity(0.8)]),
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
-                            : LinearGradient(
-                                gradient: Gradient(colors: [Color(red: 0.7, green: 0.5, blue: 0.3), Color(red: 0.8, green: 0.6, blue: 0.4)]),
-                                startPoint: .leading,
-                                endPoint: .trailing
-                            )
+                        .background(Color(red: 0.96, green: 0.96, blue: 0.98))
+                        .cornerRadius(8)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 8)
+                                .stroke(Color(red: 0.90, green: 0.90, blue: 0.90), lineWidth: 1)
                         )
-                        .cornerRadius(12)
-                        .shadow(color: Color.black.opacity(0.15), radius: 4, x: 0, y: 2)
                     }
                 }
             }
-            .padding(.horizontal, 24)
-            .padding(.top, 32)      // ✅ 内容到选项：32pt
-            .padding(.bottom, 22)   // 底部边距：22pt
+            .padding(.horizontal, 20)
+            .padding(.bottom, 20)
         }
         .frame(maxWidth: 320)  // 弹窗最大宽度
         .background(Color.white)
-        .cornerRadius(20)
+        .cornerRadius(16)
         .shadow(color: Color.black.opacity(0.2), radius: 20, x: 0, y: 10)
     }
 }
