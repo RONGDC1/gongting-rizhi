@@ -42,36 +42,29 @@ class EventGenerator {
         let events: [(title: String, description: String, options: [EventOption])] = [
             (
                 title: "前朝事件",
-                description: "丞相上奏：陛下，今年北方大旱，百姓颗粒无收，请陛下开仓放粮，救济灾民。",
+                description: "丞相上奏：陛下，今年北方大旱，百姓颗粒无收，是否开仓赈济灾民？宫廷上下等待皇上决断。",
                 options: [
                     EventOption(
                         text: "立即开仓放粮",
                         toastText: "皇帝下令开仓，灾民感激涕零",
-                        logText: "因丞相的请求，皇帝决定立即开仓放粮，救济灾民",
+                        logText: "皇帝决定立即开仓，赈济灾民。",
                         attitude: .lenient,
-                        attributeChanges: AttributeChanges(mood: 0.0, intelligence: 0.0, charm: 0.0, reputation: 0.0, popularity: 0.15, morality: 0.1)
+                        attributeChanges: AttributeChanges(mood: 0.0, intelligence: 0.0, charm: 0.0, reputation: 0.0, popularity: 0.2, morality: 0.15)
                     ),
                     EventOption(
                         text: "先调查再决定",
-                        toastText: "皇帝派遣钦差前往调查",
-                        logText: "因丞相的请求，皇帝决定先派遣官员调查灾情再作决定",
+                        toastText: "钦差随即启程，核实灾情",
+                        logText: "皇帝派遣官员调查灾情再作决断。",
                         attitude: .balanced,
-                        attributeChanges: AttributeChanges(mood: 0.0, intelligence: 0.05, charm: 0.0, reputation: 0.0, popularity: 0.0, morality: 0.0)
+                        attributeChanges: AttributeChanges(mood: 0.0, intelligence: 0.1, charm: 0.0, reputation: 0.0, popularity: 0.05, morality: 0.0)
                     ),
                     EventOption(
-                        text: "严词拒绝",
+                        text: "拒绝开仓",
                         toastText: "皇帝认为灾情不实，拒绝开仓",
-                        logText: "因丞相的请求，皇帝严词拒绝开仓，认为灾情不实",
+                        logText: "皇帝认为灾情不实",
                         attitude: .strong,
-                        attributeChanges: AttributeChanges(mood: -0.05, intelligence: 0.0, charm: 0.0, reputation: -0.1, popularity: -0.15, morality: -0.1)
+                        attributeChanges: AttributeChanges(mood: -0.05, intelligence: 0.0, charm: 0.0, reputation: -0.1, popularity: -0.1, morality: -0.1)
                     ),
-                    EventOption(
-                        text: "私下挪用部分",
-                        toastText: "皇帝私下挪用部分粮食，中饱私囊",
-                        logText: "因丞相的请求，皇帝私下挪用部分粮食，中饱私囊",
-                        attitude: .selfish,
-                        attributeChanges: AttributeChanges(mood: 0.0, intelligence: 0.0, charm: 0.0, reputation: -0.15, popularity: -0.2, morality: -0.2)
-                    )
                 ]
             ),
             (
@@ -95,16 +88,16 @@ class EventGenerator {
                     ),
                     EventOption(
                         text: "保持现状",
-                        toastText: "国库继续充盈，以备不时之需",
-                        logText: "因户部尚书的建议，皇帝权衡后决定保持现有赋税政策",
+                        toastText: "赋税维持原样，官府继续运作",
+                        logText: "皇帝权衡后决定保持现有赋税政策",
                         attitude: .balanced,
-                        attributeChanges: AttributeChanges(mood: 0.0, intelligence: 0.05, charm: 0.0, reputation: 0.0, popularity: 0.0, morality: 0.0)
+                        attributeChanges: AttributeChanges(mood: 0.0, intelligence: 0.1, charm: 0.0, reputation: 0.05, popularity: 0.0, morality: 0.0)
                     )
                 ]
             ),
             (
                 title: "前朝事件",
-                description: "御史大夫弹劾某位官员贪污受贿，请求陛下严惩！！😡",
+                description: "御史大夫弹劾某位官员贪污受贿，请求陛下严惩！！",
                 options: [
                     EventOption(
                         text: "严惩不贷",
@@ -124,10 +117,10 @@ class EventGenerator {
             ),
             (
                 title: "前朝事件",
-                description: "大臣呈上边疆军情，皇帝虚心纳谏，边疆暂稳～😌",
+                description: "皇上，江南学士名声远播，多次上书献策，才思敏捷，实为治国之良才。臣恭请陛下亲自召见，以纳贤助政！",
                 options: [
-                    EventOption(text: "采纳建议", toastText: "皇帝采纳建议，边疆暂稳", logText: "大臣呈上边疆军情，皇帝虚心纳谏，边疆暂稳"),
-                    EventOption(text: "自行决断", toastText: "皇帝深思后作出决断", logText: nil)
+                    EventOption(text: "采纳建议", toastText: "吏部尚书见你爱才，甚是欣慰😊", logText: "皇帝亲自召见江南学士，纳其才助朝政。"),
+                    EventOption(text: "暂缓招揽", toastText: "书信留案，先观其行再作决断", logText: nil)
                 ]
             )
         ]
@@ -170,7 +163,7 @@ class EventGenerator {
                 options: [
                     EventOption(
                         text: "举办盛宴",
-                        toastText: "宫中张灯结彩，华筵铺开，宫廷与民间一片欢腾👏",
+                        toastText: "宫中张灯结彩，华筵铺开，宫廷与民间一片欢腾。",
                         logText: "采纳皇后提议，中秋盛宴氛围温暖，人群笑语映照明月。",
                         attitude: .lenient,
                         attributeChanges: AttributeChanges(mood: 0.1, intelligence: 0.0, charm: 0.05, reputation: 0.0, popularity: 0.1, morality: 0.0)
@@ -194,18 +187,18 @@ class EventGenerator {
             ),
             (
                 title: "宫廷事件",
-                description: "边关急奏传来：屯田士卒遭暴风侵袭，粮草散落泥泞，帐篷倒塌，哀嚎与呼救声混入风声。",
+                description: "御膳房呈上新菜，你轻尝一口，香味中带着几分细腻与巧思。宫女们屏息旁立，等待你的评价。",
                 options: [
-                    EventOption(text: "亲自调度", toastText: "士卒获援，民心振奋💪", logText: "宫中夜灯映照书案，思绪仍牵边关安危..."),
-                    EventOption(text: "委派大臣", toastText: "调度交由大臣，稳妥应对💪", logText: nil)
+                    EventOption(text: "好吃好吃", toastText: "你轻抿一口，满意地点头😄", logText: "皇帝挑嘴却称赞新菜，宫内和民间纷纷效仿，新菜瞬间成为热门。"),
+                    EventOption(text: "没尝出啥味", toastText: "你真难伺候，让新来的厨子战战兢兢😢", logText: nil)
                 ]
             ),
             (
                 title: "宫廷事件",
-                description: "太后召皇帝入书房，语气温和却坚定，提醒他膝下无子，事关皇室未来，需早作打算。",
+                description: "你在书案上翻阅奏折，笔墨飘香。侍臣小心递过最新奏报，不敢怠慢。窗外微风拂过，卷页轻轻晃动。",
                 options: [
-                    EventOption(text: "烦了想走", toastText: "不耐烦地回应太后，起身欲离开书房", logText: nil),
-                    EventOption(text: "沉默不语", toastText: "书房静默，太后眉间忧思", logText: nil)
+                    EventOption(text: "批示下去", toastText: "你批下公文，群臣忙碌，宫中井然有序。", logText: nil),
+                    EventOption(text: "退回重议", toastText: "你鸡蛋里挑骨头，群臣微微紧张了😅", logText: nil)
                 ]
             ),
             (
@@ -232,42 +225,42 @@ class EventGenerator {
         let events: [(title: String, description: String, options: [EventOption])] = [
             (
                 title: "后宫事件",
-                description: "太医院官员匆匆入宫，恭敬禀报：“皇上，妃子遇喜了！”",
+                description: "太医院恭敬禀报：“有妃子遇喜了！”宫中顿时一阵轻微骚动，连窗外的小鸟似乎都停了片刻。你的心里有一丝意外，也有一丝期待。",
                 options: [
-                    EventOption(text: "亲自前往", toastText: "☺️见到爱妃安好，心头一片暖意", logText: nil),
+                    EventOption(text: "前往探望", toastText: "见到爱妃安好，心头一片暖意", logText: nil),
                     EventOption(text: "暂缓理会", toastText: "皇帝埋首文书，眉眼却未展喜色", logText: nil)
                 ]
             ),
             (
                 title: "后宫事件",
-                description: "悄然步入后宫，她在院中理饰花卉，随即恭敬行礼，脸上浮现惊喜而柔和的笑意，阳光洒在她肩头，轻盈而生动。",
+                description: "新来的妃子说话的语气，忽然让你想起旧人。有人看在眼里，故意学她从前的装扮，连步子都慢了半分。",
                 options: [
-                    EventOption(text: "伸手帮她整理花枝", toastText: "笑意与花香在院中流淌🌸", logText: "宠爱的妃子让后宫暗生嫉意。"),
-                    EventOption(text: "微笑夸赞", toastText: "与妃子共餐，皇帝暗自喜悦", logText: nil)
+                    EventOption(text: "刻意疏远", toastText: "微微避开，不作过多回应", logText: "新妃略显尴尬，旁妃暗自揣度。"),
+                    EventOption(text: "微笑夸赞", toastText: "你多看一眼，她便笑得更小心翼翼", logText: nil)
                 ]
             ),
             (
                 title: "后宫事件",
-                description: "妃子在宫中挑选新来的书卷，皇后冷眼注视，轻声提醒妃子礼数。妃子心中暗自较量，想赢得皇帝好感，却不得不顾忌皇后的威严，气氛微微紧张。",
+                description: "内务府新进一批胭脂，据说颜色像刚落的晚霞。几位妃子都想要同一盒，送到你案前的名册，却只够写一个名字。",
                 options: [
-                    EventOption(text: "偏袒妃子", toastText: "皇后警惕加深，宫中暗流悄起", logText: nil),
-                    EventOption(text: "偏袒皇后", toastText: "妃子心生忌意，后宫暗流涌动", logText: nil)
+                    EventOption(text: "赐给心仪之人", toastText: "一盒胭脂，三张冷脸", logText: nil),
+                    EventOption(text: "谁都不给", toastText: "皇帝未作赐予，众妃各怀心思", logText: nil)
                 ]
             ),
             (
                 title: "后宫事件",
-                description: "妃子们希望能在宫中举办一场诗词会，邀请皇帝一同参与。",
+                description: "夜深时，有人抚琴。曲子不算高明，却很认真。太监问要不要查问，你却忽然想听完。",
                 options: [
-                    EventOption(text: "批准举办", toastText: "宫中举办诗词会，妃子们吟诗作对", logText: "因妃子们的请求，皇帝批准举办诗词会"),
-                    EventOption(text: "改日再议", toastText: "皇帝决定改日再议", logText: nil)
+                    EventOption(text: "召她来见", toastText: "琴弹得一般，人倒是挺真的", logText: "皇帝因琴声召见妃子，宫中多有议论。"),
+                    EventOption(text: "不必惊动", toastText: "有些心事，远一点更好听", logText: nil)
                 ]
             ),
             (
                 title: "后宫事件",
-                description: "有人私下议论某个妃子近日行为异于平日，似在暗中筹划什么。",
+                description: "御花园里有人放风筝，线忽然断了，正好落在你脚边。风筝背面写着一句小字，像是不该给你看的。",
                 options: [
-                    EventOption(text: "暂不理会", toastText: "妃子谨慎行事，暗流潜伏🤫", logText: nil),
-                    EventOption(text: "暗中调查", toastText: "皇帝暗查流言来源，，后宫气息微紧", logText: nil)
+                    EventOption(text: "当作无事", toastText: "装没看见，也是门功夫", logText: nil),
+                    EventOption(text: "命人调查", toastText: "皇帝命查风筝来历，，后宫气息微紧", logText: nil)
                 ]
             )
         ]
@@ -286,26 +279,26 @@ class EventGenerator {
         let events: [(title: String, description: String, options: [EventOption])] = [
             (
                 title: "世情风向",
-                description: "民间传闻，某地出现祥瑞之兆，百姓纷纷议论，认为这是新朝吉兆。朝中有人建议陛下亲临查看，以彰显皇恩。",
+                description: "几家书院近日辩论不断，有人称当今政令“稳而慢”，有人说“慢即是安”。争论写成条陈递进宫里，问陛下愿不愿亲自听一听。",
                 options: [
-                    EventOption(text: "亲临查看", toastText: "皇帝亲临，百姓欢呼，民心大悦", logText: "因祥瑞之兆，皇帝亲临查看，百姓感念皇恩，民心大悦。"),
-                    EventOption(text: "派官员代行", toastText: "官员代行查看，百姓略感失望", logText: nil)
+                    EventOption(text: "微服出访", toastText: "这些话，平日没人敢对你说", logText: "皇帝微服出访，百姓感念皇恩，民心大悦。"),
+                    EventOption(text: "不作回应", toastText: "民间百姓对你略感失望", logText: nil)
                 ]
             ),
             (
                 title: "世情风向",
-                description: "市井传言，某地商贾囤积居奇，哄抬物价，百姓怨声载道。有人上书请求陛下严查此事。",
+                description: "市集里米价又涨了一截，茶馆里骂声比说书声还响。有人说是几家大商贾暗中囤货，也有人说不过是老天不肯下雨。奏折递到案前，只等陛下一句话。",
                 options: [
-                    EventOption(text: "严查商贾", toastText: "严查商贾，物价回落，百姓称善", logText: "因市井传言，皇帝下令严查商贾，物价回落，百姓称善。"),
-                    EventOption(text: "暂不理会", toastText: "传言继续发酵，民心略有不满", logText: nil)
+                    EventOption(text: "严查商贾", toastText: "这下，得把肚子吐出来。", logText: "因市井传言，皇帝下令严查商贾，物价回落，百姓称善。"),
+                    EventOption(text: "暂不理会", toastText: "朝廷未有动作，市井议论更甚，怨气隐约上浮", logText: nil)
                 ]
             ),
             (
                 title: "世情风向",
-                description: "民间流传一首新诗，内容暗讽朝政，文人墨客争相传诵。有人建议查禁此诗，以免影响朝廷声誉。",
+                description: "近来坊间流传一首新诗，字句清淡，却把朝廷比作“久坐的旧椅”。文人抄来抄去，越传越像一场无声的聚会。有人劝陛下早些按住这阵风。",
                 options: [
-                    EventOption(text: "查禁此诗", toastText: "查禁此诗，文人议论纷纷", logText: "因民间流传新诗，皇帝下令查禁，文人议论纷纷。"),
-                    EventOption(text: "不予理会", toastText: "诗作继续流传，民间议论渐起", logText: nil)
+                    EventOption(text: "查禁此诗", toastText: "纸是按住了，嘴可没那么听话", logText: "因民间流传新诗，皇帝下令查禁，文人议论纷纷。"),
+                    EventOption(text: "不管不管", toastText: "朝廷未加干涉，诗作仍在流传，舆论渐成气候。", logText: nil)
                 ]
             )
         ]
@@ -319,31 +312,31 @@ class EventGenerator {
         )
     }
     
-    // MARK: - 生成危急事件
+    // MARK: - 生成突发事件
     func generateCriticalEvent() -> GameEvent {
         let events: [(title: String, description: String, options: [EventOption])] = [
             (
-                title: "危急事件",
-                description: "深夜，皇帝在寝宫中就寝。突然，一名刺客潜入宫中，意图行刺！！",
+                title: "突发事件",
+                description: "夜深灯昏，你尚未入梦。帷帐外传来一声极轻的响动，下一瞬寒光已逼近咽喉——刺客来了！",
                 options: [
-                    EventOption(text: "奋力抵抗！", toastText: "禁卫及时赶到，刺客被擒", logText: "深夜遇刺，皇帝奋力抵抗，禁卫及时赶到救驾"),
-                    EventOption(text: "呼救禁卫！", toastText: "皇帝遇刺身亡！", logText: "因遇刺事件，皇帝呼救禁卫但为时已晚，不幸身亡")
+                    EventOption(text: "拔剑自守！", toastText: "陛下这一剑还挺像样，就是手有点抖🥶", logText: "禁卫及时赶到，刺客被擒。"),
+                    EventOption(text: "呼救禁卫！", toastText: "喊是喊了，可刀比嗓子快！", logText: "因遇刺事件，皇帝呼救禁卫但为时已晚，不幸身亡。")
                 ]
             ),
             (
-                title: "危急事件",
-                description: "🏹皇帝在御花园散步时，突然从暗处射来一支毒箭！！",
+                title: "突发事件",
+                description: "御花园里风很轻，你正听内侍说着闲话。忽然一声弦响，一支暗箭破空而来，带着刺鼻的药味！",
                 options: [
-                    EventOption(text: "躲避不及！", toastText: "皇帝中箭，虽经抢救但仍不幸身亡", logText: "因遇刺事件，皇帝躲避不及，不幸中箭身亡"),
-                    EventOption(text: "禁卫护驾！", toastText: "禁卫以身挡箭，皇帝幸免于难", logText: "遇刺事件，禁卫舍身护驾，皇帝幸免于难")
+                    EventOption(text: "本能闪避！", toastText: "你仍被毒箭擦中，药性凶猛！", logText: "园中遇袭，不幸中箭身亡"),
+                    EventOption(text: "禁卫护驾！", toastText: "有人替你挡了箭，却没机会听你说声谢", logText: "禁卫舍身护驾，皇帝幸免于难。")
                 ]
             ),
             (
-                title: "危急事件",
-                description: "边关传来急报：有将领密谋造反，意图推翻朝廷！！",
+                title: "突发事件",
+                description: "急报入京：边关将领拥兵自重，檄文已传诸郡，称天命不在朝廷！",
                 options: [
-                    EventOption(text: "派兵镇压！", toastText: "朝廷派兵镇压，谋反被平息", logText: "边关谋反，皇帝派兵镇压，叛乱被平息"),
-                    EventOption(text: "谈判安抚！", toastText: "谋反成功，王朝覆灭", logText: "边关谋反，皇帝招安失败，谋反成功，王朝覆灭")
+                    EventOption(text: "铁腕平叛！", toastText: "诏书一张，多少人替你拼命。", logText: "边将反叛，皇帝发兵征讨数月，乱事终定。"),
+                    EventOption(text: "遣使招安！", toastText: "谈的是前程，丢的是王朝", logText: "边关谋反谋反成功，王朝覆灭。")
                 ]
             )
         ]

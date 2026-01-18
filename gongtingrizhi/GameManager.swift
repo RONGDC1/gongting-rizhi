@@ -41,7 +41,7 @@ class GameManager: ObservableObject {
     }
     
     // 最大回合数（回合上限）
-    let maxRounds: Int = 50
+    let maxRounds: Int = 10
     
     // 随机生成器
     private let nameGenerator = NameGenerator()
@@ -256,7 +256,7 @@ class GameManager: ObservableObject {
         checkAndTriggerCriticalEvent()
     }
     
-    // MARK: - 手动推进一年（点击光阴流转按钮）
+    // MARK: - 手动推进一年（点击下一年按钮）
     func advanceOneYear() {
         guard gameState == .playing else { return }
         

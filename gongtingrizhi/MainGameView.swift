@@ -40,7 +40,7 @@ struct MainGameView: View {
                 
                 Spacer()
                 
-                // 底部光阴流转按钮
+                // 底部下一年按钮
                 bottomTimeButton
                     .padding(.horizontal, 20)
                     .padding(.bottom, 20)
@@ -113,14 +113,14 @@ struct MainGameView: View {
         .padding(.horizontal, 30)
     }
     
-    // MARK: - 底部光阴流转按钮
+    // MARK: - 底部下一年按钮
     private var bottomTimeButton: some View {
         Button(action: {
             if gameManager.toastMessage == nil {
                 gameManager.advanceOneYear()
             }
         }) {
-            Text("光阴流转")
+            Text("下一年")
                 .font(.system(size: 18, weight: .semibold))
                 .foregroundColor(.white)
                 .frame(width: 223)
@@ -460,7 +460,7 @@ struct TaskCard: View {
     private func getButtonBackgroundColor() -> Color {
         switch title {
         case "前朝政务": return Color(red: 0.89, green: 0.92, blue: 0.94)  // 批阅按钮颜色
-        case "宫廷人事": return Color(red: 0.96, green: 0.91, blue: 0.87)  // 召见按钮颜色
+        case "宫廷人事": return Color(red: 0.97, green: 0.94, blue: 0.87)  // 召见按钮颜色
         case "后宫事务": return Color(red: 0.97, green: 0.91, blue: 0.91)  // 处置按钮颜色
         case "世情风向": return Color(red: 0.91, green: 0.95, blue: 0.9)  // 了解按钮颜色
         default: return accentColor.opacity(0.12)
@@ -484,10 +484,8 @@ struct TaskCard: View {
 }
 
 #Preview {
-    MainGameView(gameManager: {
-        let manager = GameManager()
-        manager.startNewGame()
-        manager.confirmEmperorAndStart()
-        return manager
-    }())
+    let manager = GameManager()
+    manager.startNewGame()
+    manager.confirmEmperorAndStart()
+    return MainGameView(gameManager: manager)
 }

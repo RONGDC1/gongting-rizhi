@@ -11,17 +11,17 @@ import SwiftUI
 // MARK: - 事件弹窗视图
 // ========================================
 /// 说明：显示游戏事件的弹窗内容（不包含蒙层）
-/// ⚠️ 重要：蒙层由 MainGameView 统一管理，这里只负责弹窗内容
+/// 💡重要：蒙层由 MainGameView 统一管理，这里只负责弹窗内容
 struct EventPopupView: View {
     let event: GameEvent
     @ObservedObject var gameManager: GameManager
     
     var body: some View {
-        // ⚠️ 所有弹窗样式在这里统一管理，MainGameView 只负责蒙层
+        // 💡所有弹窗样式在这里统一管理，MainGameView 只负责蒙层
         VStack(spacing: 0) {
             // 标题栏（蓝色横幅，左侧标题，右侧关闭按钮）
             HStack {
-                Text(event.type == .critical ? "危急事件" : event.source.rawValue)
+                Text(event.type == .critical ? "⚠️危急事件" : event.source.rawValue)
                     .font(.system(size: 18, weight: .semibold))
                     .foregroundColor(.white)
                 
@@ -50,7 +50,7 @@ struct EventPopupView: View {
             // 事件描述文字
             Text(event.description)
                 .font(.system(size: 16))
-                .foregroundColor(.primary)
+                .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))  // 固定深灰色
                 .lineSpacing(6)
                 .multilineTextAlignment(.leading)
                 .fixedSize(horizontal: false, vertical: true)
@@ -67,7 +67,7 @@ struct EventPopupView: View {
                             Spacer()
                             Text(option.text)
                                 .font(.system(size: 16, weight: .medium))
-                                .foregroundColor(.primary)
+                                .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))  // 固定深灰色
                             Spacer()
                         }
                         .padding(.vertical, 14)

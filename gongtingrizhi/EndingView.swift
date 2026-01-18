@@ -70,12 +70,6 @@ struct EndingContentView: View {
             你耸耸肩，觉得这样的人生，也不错。
             """,
             """
-            曾经，你认为每一次决策都关乎生死。
-            现在回想，却觉得很多事不必那么认真。
-            风吹过宫墙，鸟鸣如旧，你却笑自己当年的紧张。
-            人生如棋，你既是下棋者，也是观棋者。
-            """,
-            """
             多少年过去，你终于不用为臣子脸色烦恼，也不必追逐边疆风云。
             宫里的繁华早已成了往事笑谈。
             年轻时的你狂热而焦虑，现在的你轻松而自在。
@@ -221,7 +215,7 @@ struct EndingContentView: View {
         }
     }
 
-    // MARK: - 退位文案（生动四五句版）
+    // MARK: - 退位文案
     private func generateAbdicationText(attrs: EmperorAttributes) -> String {
         
         func randomLine(_ lines: [String]) -> String {
@@ -243,13 +237,6 @@ struct EndingContentView: View {
                 臣子们面面相觑，没人敢发出声音。
                 你笑了笑，笑得很淡。
                 离开，不是失败，而是一种选择。
-                """,
-                """
-                这个决定很安静，也很坚定。
-                没人喝彩，也没人指责。
-                你把手放在胸口，感受自己呼吸的节奏。
-                风吹过肩上的披风。
-                自由，竟是如此微妙的感受。
                 """
             ]
             return randomLine(texts)
@@ -269,13 +256,6 @@ struct EndingContentView: View {
                 你低头，缓缓离开。
                 城门之外，阳光洒落，照在无人注意的地面上。
                 一切如你所料，静默无声。
-                """,
-                """
-                你退下宝座，没人看你最后一眼。
-                街道依旧有人走动，却没人回头。
-                风轻轻吹过，你披着袍子走向未知。
-                宫墙内外的喧嚣与你无关。
-                孤独，却也真实。
                 """
             ]
             return randomLine(texts)
@@ -288,13 +268,6 @@ struct EndingContentView: View {
                 风还是吹，日子照常流过。
                 你微微耸肩，笑了笑。
                 自由，原来是一种奇怪的轻松感。
-                """,
-                """
-                脱下龙袍，你肩头轻了许多。
-                心里空了点，却又有点期待。
-                荣耀不追求，羞愧不挂念。
-                朝堂静静看你离开，你偷笑了一下。
-                世界照常，你终于能慢慢走自己的路。
                 """,
                 """
                 “是时候了。”你低声说。
@@ -342,7 +315,7 @@ struct EndingContentView: View {
                     // 结局文案
                     Text(generateEndingSummary())
                         .font(.system(size: 16))
-                        .foregroundColor(.primary)
+                        .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))// 固定深灰色
                         .multilineTextAlignment(.center)
                         .lineSpacing(12)
                         .padding(.horizontal, 20)
@@ -364,7 +337,7 @@ struct EndingContentView: View {
                                     
                                     Text(fragment.content)
                                         .font(.system(size: 15))
-                                        .foregroundColor(.primary)
+                                        .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))// 固定深灰色
                                         .lineSpacing(6)
                                 }
                                 .padding(20)
@@ -432,10 +405,9 @@ struct EndingContentView: View {
 }
 
 #Preview {
-    EndingView(gameManager: {
-        let manager = GameManager()
-        manager.startNewGame()
-        manager.endingType = .abdication
-        return manager
-    }())
+    let manager = GameManager()
+    manager.startNewGame()
+    manager.endingType = .abdication
+    manager.gameState = .ended
+    return EndingView(gameManager: manager)
 }

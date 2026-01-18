@@ -77,10 +77,10 @@ enum AttitudeType: String, Codable {
 
 // MARK: - 事件来源（事件池）
 enum EventSource: String, Codable, CaseIterable {
-    case frontCourt = "前朝政务"
-    case courtPersonnel = "宫廷人事"
-    case harem = "后宫事务"
-    case publicOpinion = "世情风向"
+    case frontCourt = "🏛️前朝政务"
+    case courtPersonnel = "⛲️宫廷人事"
+    case harem = "💘后宫事务"
+    case publicOpinion = "🍃世情风向"
     
     var eventType: EventType {
         switch self {
@@ -200,10 +200,10 @@ enum Season: String, CaseIterable, Codable {
 
 // MARK: - 事件类型枚举
 enum EventType: String, Codable {
-    case frontCourt = "🏛️前朝事件"
-    case palace = "⛲️宫廷事件"
-    case harem = "🏮后宫事件"
-    case critical = "⚠️危急事件"
+    case frontCourt = "前朝事件"
+    case palace = "宫廷事件"
+    case harem = "后宫事件"
+    case critical = "突发事件"
 }
 
 // MARK: - 事件选项

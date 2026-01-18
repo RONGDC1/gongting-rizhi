@@ -23,27 +23,27 @@ struct EmperorConfirmView: View {
                 VStack(spacing: 16) {
                     Text("人生已经开始，")
                         .font(.system(size: 16))
-                        .foregroundColor(Color(red: 0.64, green: 0.4, blue: 0.23))
+                        .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
                     
                     Text("你无法选择出身、性格与局势。")
                         .font(.system(size: 16))
-                        .foregroundColor(Color(red: 0.64, green: 0.4, blue: 0.23))
+                        .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
                     
                     Text("你能选择的，")
                         .font(.system(size: 16))
-                        .foregroundColor(Color(red: 0.64, green: 0.4, blue: 0.23))
+                        .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
                     
                     Text("只有在这一刻如何判断，")
                         .font(.system(size: 16))
-                        .foregroundColor(Color(red: 0.64, green: 0.4, blue: 0.23))
+                        .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
                     
                     Text("以及判断之后，")
                         .font(.system(size: 16))
-                        .foregroundColor(Color(red: 0.64, green: 0.4, blue: 0.23))
+                        .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
                     
                     Text("愿意承担什么。")
                         .font(.system(size: 16))
-                        .foregroundColor(Color(red: 0.64, green: 0.4, blue: 0.23))
+                        .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))
                 }
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 40)
@@ -69,9 +69,7 @@ struct EmperorConfirmView: View {
 }
 
 #Preview {
-    EmperorConfirmView(gameManager: {
-        let manager = GameManager()
-        manager.startNewGame()
-        return manager
-    }())
+    let manager = GameManager()
+    manager.startNewGame()
+    return EmperorConfirmView(gameManager: manager)
 }
