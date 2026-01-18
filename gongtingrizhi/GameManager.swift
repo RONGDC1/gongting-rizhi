@@ -375,33 +375,33 @@ class GameManager: ObservableObject {
         }
     }
     
-    // MARK: - 检查数值极端
+    // MARK: - 检查数值极端（只检查数值过低的情况）
     private func checkExtremeValues() {
         guard let emperor = emperor else { return }
         let attrs = emperor.attributes
         
-        // 检查各属性是否极端，并记录原因
-        if attrs.mood < 0.1 || attrs.mood > 0.9 {
+        // 检查各属性是否过低（<0.1），并记录原因
+        if attrs.mood < 0.1 {
             collapseReason = .mood
             endingType = .collapse
             gameState = .ended
-        } else if attrs.intelligence < 0.1 || attrs.intelligence > 0.9 {
+        } else if attrs.intelligence < 0.1 {
             collapseReason = .intelligence
             endingType = .collapse
             gameState = .ended
-        } else if attrs.charm < 0.1 || attrs.charm > 0.9 {
+        } else if attrs.charm < 0.1 {
             collapseReason = .charm
             endingType = .collapse
             gameState = .ended
-        } else if attrs.reputation < 0.1 || attrs.reputation > 0.9 {
+        } else if attrs.reputation < 0.1 {
             collapseReason = .reputation
             endingType = .collapse
             gameState = .ended
-        } else if attrs.popularity < 0.1 || attrs.popularity > 0.9 {
+        } else if attrs.popularity < 0.1 {
             collapseReason = .popularity
             endingType = .collapse
             gameState = .ended
-        } else if attrs.morality < 0.1 || attrs.morality > 0.9 {
+        } else if attrs.morality < 0.1 {
             collapseReason = .morality
             endingType = .collapse
             gameState = .ended

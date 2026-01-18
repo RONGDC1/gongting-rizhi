@@ -181,32 +181,80 @@ class EventGenerator {
                 title: "宫廷事件",
                 description: "宫中御花园的牡丹花盛开，皇后轻笑邀皇帝共赏。花间一回眸，仿佛又回到年少时两人初见的模样。",
                 options: [
-                    EventOption(text: "欣然前往", toastText: "😘皇帝与皇后在花园中漫步赏花~", logText: nil),
-                    EventOption(text: "忙于政务", toastText: "花香独留，皇后略感失落😢...", logText: nil)
+                    EventOption(
+                        text: "欣然前往",
+                        toastText: "😘皇帝与皇后在花园中漫步赏花~",
+                        logText: nil,
+                        attitude: .lenient,
+                        attributeChanges: AttributeChanges(mood: 0.05, intelligence: 0.0, charm: 0.05, reputation: 0.0, popularity: 0.0, morality: 0.0)
+                    ),
+                    EventOption(
+                        text: "忙于政务",
+                        toastText: "花香独留，皇后略感失落😢...",
+                        logText: nil,
+                        attitude: .balanced,
+                        attributeChanges: AttributeChanges(mood: -0.05, intelligence: 0.05, charm: 0.0, reputation: 0.0, popularity: 0.0, morality: 0.0)
+                    )
                 ]
             ),
             (
                 title: "宫廷事件",
                 description: "御膳房呈上新菜，你轻尝一口，香味中带着几分细腻与巧思。宫女们屏息旁立，等待你的评价。",
                 options: [
-                    EventOption(text: "好吃好吃", toastText: "你轻抿一口，满意地点头😄", logText: "皇帝挑嘴却称赞新菜，宫内和民间纷纷效仿，新菜瞬间成为热门。"),
-                    EventOption(text: "没尝出啥味", toastText: "你真难伺候，让新来的厨子战战兢兢😢", logText: nil)
+                    EventOption(
+                        text: "好吃好吃",
+                        toastText: "你轻抿一口，满意地点头😄",
+                        logText: "皇帝挑嘴却称赞新菜，宫内和民间纷纷效仿，新菜瞬间成为热门。",
+                        attitude: .lenient,
+                        attributeChanges: AttributeChanges(mood: 0.05, intelligence: 0.0, charm: 0.0, reputation: 0.0, popularity: 0.05, morality: 0.0)
+                    ),
+                    EventOption(
+                        text: "没尝出啥味",
+                        toastText: "你真难伺候，让新来的厨子战战兢兢😢",
+                        logText: nil,
+                        attitude: .strong,
+                        attributeChanges: AttributeChanges(mood: -0.05, intelligence: 0.0, charm: -0.05, reputation: 0.0, popularity: 0.0, morality: 0.0)
+                    )
                 ]
             ),
             (
                 title: "宫廷事件",
                 description: "你在书案上翻阅奏折，笔墨飘香。侍臣小心递过最新奏报，不敢怠慢。窗外微风拂过，卷页轻轻晃动。",
                 options: [
-                    EventOption(text: "批示下去", toastText: "你批下公文，群臣忙碌，宫中井然有序。", logText: nil),
-                    EventOption(text: "退回重议", toastText: "你鸡蛋里挑骨头，群臣微微紧张了😅", logText: nil)
+                    EventOption(
+                        text: "批示下去",
+                        toastText: "你批下公文，群臣忙碌，宫中井然有序。",
+                        logText: nil,
+                        attitude: .balanced,
+                        attributeChanges: AttributeChanges(mood: 0.0, intelligence: 0.05, charm: 0.0, reputation: 0.05, popularity: 0.0, morality: 0.0)
+                    ),
+                    EventOption(
+                        text: "退回重议",
+                        toastText: "你鸡蛋里挑骨头，群臣微微紧张了😅",
+                        logText: nil,
+                        attitude: .strong,
+                        attributeChanges: AttributeChanges(mood: 0.0, intelligence: 0.05, charm: 0.0, reputation: -0.05, popularity: 0.0, morality: 0.0)
+                    )
                 ]
             ),
             (
                 title: "宫廷事件",
                 description: "今日大朝，群臣进见，皇上需决定是否采纳新的赋税制度提案，以平衡国库与民生。",
                 options: [
-                    EventOption(text: "采纳提案", toastText: "新政上奏，朝臣称善", logText: "皇帝采纳新赋税方案，国库渐充百官称善，朝堂风声更稳。"),
-                    EventOption(text: "暂缓执行", toastText: "朝堂静待明日抉择，宫中沉思未了", logText: nil)
+                    EventOption(
+                        text: "采纳提案",
+                        toastText: "新政上奏，朝臣称善",
+                        logText: "皇帝采纳新赋税方案，国库渐充百官称善，朝堂风声更稳。",
+                        attitude: .balanced,
+                        attributeChanges: AttributeChanges(mood: 0.0, intelligence: 0.05, charm: 0.0, reputation: 0.1, popularity: 0.1, morality: 0.0)
+                    ),
+                    EventOption(
+                        text: "暂缓执行",
+                        toastText: "朝堂静待明日抉择，宫中沉思未了",
+                        logText: nil,
+                        attitude: .balanced,
+                        attributeChanges: AttributeChanges(mood: 0.0, intelligence: 0.05, charm: 0.0, reputation: -0.05, popularity: 0.0, morality: 0.0)
+                    )
                 ]
             )
         ]
@@ -227,40 +275,100 @@ class EventGenerator {
                 title: "后宫事件",
                 description: "太医院恭敬禀报：“有妃子遇喜了！”宫中顿时一阵轻微骚动，连窗外的小鸟似乎都停了片刻。你的心里有一丝意外，也有一丝期待。",
                 options: [
-                    EventOption(text: "前往探望", toastText: "见到爱妃安好，心头一片暖意", logText: nil),
-                    EventOption(text: "暂缓理会", toastText: "皇帝埋首文书，眉眼却未展喜色", logText: nil)
+                    EventOption(
+                        text: "前往探望",
+                        toastText: "见到爱妃安好，心头一片暖意",
+                        logText: nil,
+                        attitude: .lenient,
+                        attributeChanges: AttributeChanges(mood: 0.1, intelligence: 0.0, charm: 0.05, reputation: 0.0, popularity: 0.0, morality: 0.0)
+                    ),
+                    EventOption(
+                        text: "暂缓理会",
+                        toastText: "皇帝埋首文书，眉眼却未展喜色",
+                        logText: nil,
+                        attitude: .balanced,
+                        attributeChanges: AttributeChanges(mood: -0.05, intelligence: 0.05, charm: -0.05, reputation: 0.0, popularity: 0.0, morality: 0.0)
+                    )
                 ]
             ),
             (
                 title: "后宫事件",
                 description: "新来的妃子说话的语气，忽然让你想起旧人。有人看在眼里，故意学她从前的装扮，连步子都慢了半分。",
                 options: [
-                    EventOption(text: "刻意疏远", toastText: "微微避开，不作过多回应", logText: "新妃略显尴尬，旁妃暗自揣度。"),
-                    EventOption(text: "微笑夸赞", toastText: "你多看一眼，她便笑得更小心翼翼", logText: nil)
+                    EventOption(
+                        text: "刻意疏远",
+                        toastText: "微微避开，不作过多回应",
+                        logText: "新妃略显尴尬，旁妃暗自揣度。",
+                        attitude: .balanced,
+                        attributeChanges: AttributeChanges(mood: -0.05, intelligence: 0.0, charm: -0.05, reputation: 0.0, popularity: 0.0, morality: 0.0)
+                    ),
+                    EventOption(
+                        text: "微笑夸赞",
+                        toastText: "你多看一眼，她便笑得更小心翼翼",
+                        logText: nil,
+                        attitude: .lenient,
+                        attributeChanges: AttributeChanges(mood: 0.05, intelligence: 0.0, charm: 0.05, reputation: 0.0, popularity: 0.0, morality: 0.0)
+                    )
                 ]
             ),
             (
                 title: "后宫事件",
                 description: "内务府新进一批胭脂，据说颜色像刚落的晚霞。几位妃子都想要同一盒，送到你案前的名册，却只够写一个名字。",
                 options: [
-                    EventOption(text: "赐给心仪之人", toastText: "一盒胭脂，三张冷脸", logText: nil),
-                    EventOption(text: "谁都不给", toastText: "皇帝未作赐予，众妃各怀心思", logText: nil)
+                    EventOption(
+                        text: "赐给心仪之人",
+                        toastText: "一盒胭脂，三张冷脸",
+                        logText: nil,
+                        attitude: .selfish,
+                        attributeChanges: AttributeChanges(mood: 0.05, intelligence: 0.0, charm: 0.05, reputation: -0.05, popularity: 0.0, morality: -0.05)
+                    ),
+                    EventOption(
+                        text: "谁都不给",
+                        toastText: "皇帝未作赐予，众妃各怀心思",
+                        logText: nil,
+                        attitude: .balanced,
+                        attributeChanges: AttributeChanges(mood: 0.0, intelligence: 0.0, charm: 0.0, reputation: 0.0, popularity: 0.0, morality: 0.0)
+                    )
                 ]
             ),
             (
                 title: "后宫事件",
                 description: "夜深时，有人抚琴。曲子不算高明，却很认真。太监问要不要查问，你却忽然想听完。",
                 options: [
-                    EventOption(text: "召她来见", toastText: "琴弹得一般，人倒是挺真的", logText: "皇帝因琴声召见妃子，宫中多有议论。"),
-                    EventOption(text: "不必惊动", toastText: "有些心事，远一点更好听", logText: nil)
+                    EventOption(
+                        text: "召她来见",
+                        toastText: "琴弹得一般，人倒是挺真的",
+                        logText: "皇帝因琴声召见妃子，宫中多有议论。",
+                        attitude: .lenient,
+                        attributeChanges: AttributeChanges(mood: 0.05, intelligence: 0.0, charm: 0.05, reputation: 0.05, popularity: 0.0, morality: 0.0)
+                    ),
+                    EventOption(
+                        text: "不必惊动",
+                        toastText: "有些心事，远一点更好听",
+                        logText: nil,
+                        attitude: .balanced,
+                        attributeChanges: AttributeChanges(mood: 0.05, intelligence: 0.05, charm: 0.0, reputation: 0.0, popularity: 0.0, morality: 0.0)
+                    )
                 ]
             ),
             (
                 title: "后宫事件",
                 description: "御花园里有人放风筝，线忽然断了，正好落在你脚边。风筝背面写着一句小字，像是不该给你看的。",
                 options: [
-                    EventOption(text: "当作无事", toastText: "装没看见，也是门功夫", logText: nil),
-                    EventOption(text: "命人调查", toastText: "皇帝命查风筝来历，，后宫气息微紧", logText: nil)
+                    EventOption(
+                        text: "当作无事",
+                        toastText: "装没看见，也是门功夫",
+                        logText: nil,
+                        attitude: .lenient,
+                        attributeChanges: AttributeChanges(mood: 0.0, intelligence: 0.0, charm: 0.05, reputation: 0.05, popularity: 0.0, morality: 0.05)
+                    ),
+                    EventOption(
+                        text: "命人调查",
+                        toastText: "皇帝命查风筝来历，，后宫气息微紧",
+                        logText: nil,
+                        attitude: .strong,
+                        attributeChanges: AttributeChanges(mood: -0.05, intelligence: 0.05, charm: 0.0, reputation: -0.05, popularity: 0.0, morality: 0.0)
+                    )
                 ]
             )
         ]
@@ -281,24 +389,60 @@ class EventGenerator {
                 title: "世情风向",
                 description: "几家书院近日辩论不断，有人称当今政令“稳而慢”，有人说“慢即是安”。争论写成条陈递进宫里，问陛下愿不愿亲自听一听。",
                 options: [
-                    EventOption(text: "微服出访", toastText: "这些话，平日没人敢对你说", logText: "皇帝微服出访，百姓感念皇恩，民心大悦。"),
-                    EventOption(text: "不作回应", toastText: "民间百姓对你略感失望", logText: nil)
+                    EventOption(
+                        text: "微服出访",
+                        toastText: "这些话，平日没人敢对你说",
+                        logText: "皇帝微服出访，百姓感念皇恩，民心大悦。",
+                        attitude: .balanced,
+                        attributeChanges: AttributeChanges(mood: 0.05, intelligence: 0.05, charm: 0.0, reputation: 0.1, popularity: 0.15, morality: 0.05)
+                    ),
+                    EventOption(
+                        text: "不作回应",
+                        toastText: "民间百姓对你略感失望",
+                        logText: nil,
+                        attitude: .balanced,
+                        attributeChanges: AttributeChanges(mood: 0.0, intelligence: 0.0, charm: 0.0, reputation: -0.05, popularity: -0.1, morality: 0.0)
+                    )
                 ]
             ),
             (
                 title: "世情风向",
                 description: "市集里米价又涨了一截，茶馆里骂声比说书声还响。有人说是几家大商贾暗中囤货，也有人说不过是老天不肯下雨。奏折递到案前，只等陛下一句话。",
                 options: [
-                    EventOption(text: "严查商贾", toastText: "这下，得把肚子吐出来。", logText: "因市井传言，皇帝下令严查商贾，物价回落，百姓称善。"),
-                    EventOption(text: "暂不理会", toastText: "朝廷未有动作，市井议论更甚，怨气隐约上浮", logText: nil)
+                    EventOption(
+                        text: "严查商贾",
+                        toastText: "这下，得把肚子吐出来。",
+                        logText: "因市井传言，皇帝下令严查商贾，物价回落，百姓称善。",
+                        attitude: .strong,
+                        attributeChanges: AttributeChanges(mood: 0.0, intelligence: 0.05, charm: 0.0, reputation: 0.1, popularity: 0.15, morality: 0.1)
+                    ),
+                    EventOption(
+                        text: "暂不理会",
+                        toastText: "朝廷未有动作，市井议论更甚，怨气隐约上浮",
+                        logText: nil,
+                        attitude: .balanced,
+                        attributeChanges: AttributeChanges(mood: 0.0, intelligence: 0.0, charm: 0.0, reputation: -0.05, popularity: -0.15, morality: -0.05)
+                    )
                 ]
             ),
             (
                 title: "世情风向",
                 description: "近来坊间流传一首新诗，字句清淡，却把朝廷比作“久坐的旧椅”。文人抄来抄去，越传越像一场无声的聚会。有人劝陛下早些按住这阵风。",
                 options: [
-                    EventOption(text: "查禁此诗", toastText: "纸是按住了，嘴可没那么听话", logText: "因民间流传新诗，皇帝下令查禁，文人议论纷纷。"),
-                    EventOption(text: "不管不管", toastText: "朝廷未加干涉，诗作仍在流传，舆论渐成气候。", logText: nil)
+                    EventOption(
+                        text: "查禁此诗",
+                        toastText: "纸是按住了，嘴可没那么听话",
+                        logText: "因民间流传新诗，皇帝下令查禁，文人议论纷纷。",
+                        attitude: .strong,
+                        attributeChanges: AttributeChanges(mood: 0.0, intelligence: 0.0, charm: 0.0, reputation: -0.1, popularity: -0.1, morality: -0.05)
+                    ),
+                    EventOption(
+                        text: "不管不管",
+                        toastText: "朝廷未加干涉，诗作仍在流传，舆论渐成气候。",
+                        logText: nil,
+                        attitude: .lenient,
+                        attributeChanges: AttributeChanges(mood: 0.0, intelligence: 0.0, charm: 0.0, reputation: 0.05, popularity: 0.05, morality: 0.05)
+                    )
                 ]
             )
         ]
