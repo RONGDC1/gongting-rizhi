@@ -13,11 +13,11 @@ struct ContentView: View {
     var body: some View {
         Group {
             switch gameManager.gameState {
-            case .emperorConfirm:
+            case .emperorConfirm: // 开局确认界面
                 EmperorConfirmView(gameManager: gameManager)
-            case .playing:
-                MainGameView(gameManager: gameManager)
-            case .ended:
+            case .playing: // 主游戏界面（包含Tab导航）
+                MainContainerView(gameManager: gameManager)
+            case .ended: // 结局界面
                 EndingView(gameManager: gameManager)
             }
         }

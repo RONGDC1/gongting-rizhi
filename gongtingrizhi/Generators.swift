@@ -9,11 +9,11 @@ import Foundation
 
 // MARK: - 名字生成器
 class NameGenerator {
-    private let emperorSurnames = ["赵", "刘", "宇文", "杨", "朱", "景", "凌", "拓跋", "沈", "钟离"]
+    private let emperorSurnames = ["赵", "刘", "宇文", "杨", "凌", "拓跋", "沈", "钟离"]
     private let emperorGivenNames = ["世乾", "元灏", "光文", "建平", "延", "衡", "熙", "尘山", "澈", "翊钧", "景玺", "瑞"]
     
     func generateEmperorName() -> String {
-        let surname = emperorSurnames.randomElement() ?? "景"
+        let surname = emperorSurnames.randomElement() ?? "拓跋"
         let givenName = emperorGivenNames.randomElement() ?? "延"
         return surname + givenName
     }
@@ -37,12 +37,12 @@ class EventGenerator {
         }
     }
     
-    // MARK: - 生成前朝事件
+    // MARK: - 生成前朝事件（朝政类）
     func generateFrontCourtEvent() -> GameEvent {
         let events: [(title: String, description: String, options: [EventOption])] = [
             (
-                title: "前朝事件",
-                description: "丞相上奏：陛下，今年北方大旱，百姓颗粒无收，是否开仓赈济灾民？宫廷上下等待皇上决断。",
+                title: "减税之议",
+                description: "[户部] 请奏\n恭请圣安！\n\n今年国库略有盈余，朝中有人提议减免部分赋税以安民心。然而此举可能影响来年财政，且朝中派系对此意见不一，有派系纷争，需马上裁决。",
                 options: [
                     EventOption(
                         text: "立即开仓放粮",
@@ -272,26 +272,7 @@ class EventGenerator {
     func generateHaremEvent() -> GameEvent {
         let events: [(title: String, description: String, options: [EventOption])] = [
             (
-                title: "后宫事件",
-                description: "太医院恭敬禀报：“有妃子遇喜了！”宫中顿时一阵轻微骚动，连窗外的小鸟似乎都停了片刻。你的心里有一丝意外，也有一丝期待。",
-                options: [
-                    EventOption(
-                        text: "前往探望",
-                        toastText: "见到爱妃安好，心头一片暖意",
-                        logText: nil,
-                        attitude: .lenient,
-                        attributeChanges: AttributeChanges(mood: 0.1, intelligence: 0.0, charm: 0.05, reputation: 0.0, popularity: 0.0, morality: 0.0)
-                    ),
-                    EventOption(
-                        text: "暂缓理会",
-                        toastText: "皇帝埋首文书，眉眼却未展喜色",
-                        logText: nil,
-                        attitude: .balanced,
-                        attributeChanges: AttributeChanges(mood: -0.05, intelligence: 0.05, charm: -0.05, reputation: 0.0, popularity: 0.0, morality: 0.0)
-                    )
-                ]
-            ),
-            (
+                
                 title: "后宫事件",
                 description: "新来的妃子说话的语气，忽然让你想起旧人。有人看在眼里，故意学她从前的装扮，连步子都慢了半分。",
                 options: [

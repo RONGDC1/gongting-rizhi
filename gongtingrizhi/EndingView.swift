@@ -58,10 +58,7 @@ struct EndingContentView: View {
     private func generateNaturalEndText(attrs: EmperorAttributes) -> String {
         let texts = [
             """
-            年轻时，你以为掌控天下就是掌控一切。
-            后来才明白，真正难掌控的，是自己心里的急躁和不安。
-            如今，你坐在曾经令你紧张的宝座上，微微一笑。
-            原来，权势也不过是提醒自己：喝水、按时休息罢了。
+            你郑重地将玉玺递给你培养多年的人的手中，他眼神中闪过惊讶与坚定。殿内轻微的动静提醒你，宝座不再是你的负担，心头有种释然。殿内轻微的动静提醒你，未来已交到他手里。
             """
         ]
         return texts.randomElement() ?? texts[0]
@@ -176,87 +173,134 @@ struct EndingContentView: View {
     var body: some View {
         VStack(spacing: 0) {
             ScrollView {
-                VStack(spacing: 30) {
-                    // 结局类型标识（简化显示）
+                VStack(spacing: 0) {
+                    // ========================================
+                    // MARK: - 结局类型标识模块（图标 + 标题）
+                    // ========================================
                     if let endingType = gameManager.endingType {
-                        VStack(spacing: 20) {
+                        VStack(spacing: 16) {
+                            // 结局图标（emoji）
                             Text(getEndingEmoji(endingType))
-                                .font(.system(size: 58))
+                                .font(.system(size: 48))
                             
+                            // 结局类型标题（如"已退位"）
                             Text(endingType.rawValue)
-                                .font(.system(size: 22, weight: .medium))
-                                .foregroundColor(Color(red: 0.50, green: 0.40, blue: 0.30))
+                                .font(.system(size: 24, weight: .medium))
+                                .foregroundColor(Color(red: 0.54, green: 0.43, blue: 0.36))  // 优雅的棕橙色
                         }
-                        .padding(.top, 90)
-                        .padding(.bottom, 20)
+                        .padding(.top, 120)  // 增加顶部间距，让图标距离顶部更远
+                        .padding(.bottom, 30)
                     }
                     
-                    // 结局文案
+                    // ========================================
+                    // MARK: - 结局总结文案模块
+                    // ========================================
                     Text(generateEndingSummary())
                         .font(.system(size: 16))
-                        .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))// 固定深灰色
+                        .foregroundColor(Color(red: 0.54, green: 0.43, blue: 0.36))  // 优雅的深灰色（略浅于纯黑）
                         .multilineTextAlignment(.center)
                         .lineSpacing(12)
-                        .padding(.horizontal, 20)
-                        .padding(.bottom, 30)
+                        .padding(.horizontal, 40)  // 增加左右内边距，让文字更集中
+                        .padding(.bottom, 50)  // 增加底部间距，为记忆片段留出空间
                     
-                    // 记忆片段（去重）
+                    // ========================================
+                    // MARK: - 记忆片段卡片模块（无标题，直接展示卡片）
+                    // ========================================
                     if !uniqueMemoryFragments.isEmpty {
-                        VStack(alignment: .leading, spacing: 20) {
-                            Text("记忆片段")
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundColor(Color(red: 0.50, green: 0.40, blue: 0.30))
-                                .padding(.horizontal, 20)
-                            
+                        VStack(spacing: 16) {  // 卡片之间的间距
                             ForEach(uniqueMemoryFragments) { fragment in
-                                VStack(alignment: .leading, spacing: 8) {
-                                    Text(fragment.speaker)
-                                        .font(.system(size: 13, weight: .medium))
-                                        .foregroundColor(.secondary)
-                                    
-                                    Text(fragment.content)
-                                        .font(.system(size: 15))
-                                        .foregroundColor(Color(red: 0.2, green: 0.2, blue: 0.2))// 固定深灰色
-                                        .lineSpacing(6)
-                                }
-                                .padding(20)
-                                .background(Color.white.opacity(0.5))
-                                .cornerRadius(12)
-                                .padding(.horizontal, 20)
+                                // 单个记忆片段卡片
+                                memoryFragmentCard(fragment: fragment)
                             }
                         }
-                        .padding(.bottom, 20)
+                        .padding(.horizontal, 16)  // 卡片左右边距
+                        .padding(.bottom, 30)
                     }
                 }
-                .padding(.horizontal, 16)
             }
             
             Spacer()
             
-            // 重新开始按钮
-            Button(action: {
-                gameManager.restart()
-            }) {
-                Text("重新开始")
-                    .font(.system(size: 18, weight: .semibold))
-                    .foregroundColor(.white)
-                    .frame(width: 223)
-                    .padding(.vertical, 16)
-                    .background(
-                        LinearGradient(
-                            gradient: Gradient(colors: [
-                                Color(red: 0.7, green: 0.5, blue: 0.3),
-                                Color(red: 0.8, green: 0.6, blue: 0.4)
-                            ]),
-                            startPoint: .leading,
-                            endPoint: .trailing
+            // ========================================
+            // MARK: - 结局按钮模块（两个按钮：以储君身份继续、重新开始）
+            // ========================================
+            VStack(spacing: 16) {
+                // 以储君身份继续按钮（如果有储君）
+                if let crownPrince = gameManager.crownPrince {
+                    Button(action: {
+                        gameManager.startNewGameWithHeir(crownPrince: crownPrince)
+                    }) {
+                        Text("以\(crownPrince.name)身份开始")
+                            .font(.system(size: 18, weight: .semibold))
+                            .foregroundColor(.white)
+                            .frame(width: 223)
+                            .padding(.vertical, 16)
+                            .background(
+                                LinearGradient(
+                                    gradient: Gradient(colors: [
+                                        Color(red: 0.7, green: 0.5, blue: 0.3),
+                                        Color(red: 0.8, green: 0.6, blue: 0.4)
+                                    ]),
+                                    startPoint: .leading,
+                                    endPoint: .trailing
+                                )
+                            )
+                            .cornerRadius(99)
+                    }
+                }
+                
+                // 重新开始按钮
+                Button(action: {
+                    gameManager.restart()
+                }) {
+                    Text("重新开始")
+                        .font(.system(size: 18, weight: .semibold))
+                        .foregroundColor(.white)
+                        .frame(width: 223)
+                        .padding(.vertical, 16)
+                        .background(
+                            LinearGradient(
+                                gradient: Gradient(colors: [
+                                    Color(red: 0.7, green: 0.5, blue: 0.3),
+                                    Color(red: 0.8, green: 0.6, blue: 0.4)
+                                ]),
+                                startPoint: .leading,
+                                endPoint: .trailing
+                            )
                         )
-                    )
-                    .cornerRadius(99)
+                        .cornerRadius(99)
+                }
             }
             .padding(.horizontal, 20)
             .padding(.bottom, 48)
         }
+    }
+    
+    // ========================================
+    // MARK: - 记忆片段卡片子视图
+    // ========================================
+    /// 单个记忆片段卡片的样式和布局
+    /// - 卡片宽度：约280-300像素（通过maxWidth限制）
+    /// - 卡片内边距：20pt
+    /// - 文字颜色：优雅的深灰色
+    private func memoryFragmentCard(fragment: MemoryFragment) -> some View {
+        VStack(alignment: .leading, spacing: 10) {
+            // 说话者名称（如"开封老农:"）
+            Text(fragment.speaker)
+                .font(.system(size: 13, weight: .medium))
+                .foregroundColor(Color(red: 0.25, green: 0.25, blue: 0.25))  // 优雅的深灰色
+            
+            // 记忆内容文本
+            Text(fragment.content)
+                .font(.system(size: 15))
+                .foregroundColor(Color(red: 0.25, green: 0.25, blue: 0.25))  // 优雅的深灰色
+                .lineSpacing(6)
+                .fixedSize(horizontal: false, vertical: true)  // 允许文本换行
+        }
+        .frame(maxWidth: 300, alignment: .leading)  // 限制卡片最大宽度为300pt，内容左对齐
+        .padding(20)  // 卡片内边距：20pt
+        .background(Color.white.opacity(0.6))  // 半透明白色背景（60%不透明度）
+        .cornerRadius(12)  // 圆角：12pt
     }
     
     // MARK: - 获取结局emoji
